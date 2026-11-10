@@ -1,0 +1,1454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<title>PumpFun | Cashback + Airdrop Hub</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --pump-darker: #050505;
+    --pump-dark: #0A0A0A;
+    --pump-card: #0F0F0F;
+    --pump-border: #1A1A1A;
+    --pump-green: #00FF88;
+    --pump-green-dim: #00CC66;
+    --pump-green-deep: #00AA55;
+    --pump-warning: #FF4444;
+  }
+
+  body {
+    background: var(--pump-darker);
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(0, 255, 136, 0.03) 0%, transparent 50%),
+      radial-gradient(circle at 80% 70%, rgba(0, 204, 102, 0.03) 0%, transparent 50%);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', monospace;
+    color: #FFFFFF;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: #0F0F0F; }
+  ::-webkit-scrollbar-thumb { background: #00FF88; border-radius: 10px; }
+
+  .glass-card {
+    background: rgba(15, 15, 15, 0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  /* ===== Neon borders ===== */
+  .neon-border-green {
+    border: 1px solid rgba(0, 255, 136, 0.3);
+    box-shadow: 0 0 20px rgba(0, 255, 136, 0.05);
+    transition: all 0.3s ease;
+  }
+  .neon-border-green:hover {
+    border-color: rgba(0, 255, 136, 0.8);
+    box-shadow: 0 0 30px rgba(0, 255, 136, 0.15);
+  }
+
+  .neon-border-green-dim {
+    border: 1px solid rgba(0, 204, 102, 0.3);
+    box-shadow: 0 0 20px rgba(0, 204, 102, 0.05);
+    transition: all 0.3s ease;
+  }
+  .neon-border-green-dim:hover {
+    border-color: rgba(0, 204, 102, 0.8);
+    box-shadow: 0 0 30px rgba(0, 204, 102, 0.15);
+  }
+
+  /* ===== Buttons ===== */
+  .btn-cashback {
+    background: linear-gradient(135deg, #00FF88 0%, #00CC66 100%);
+    color: #000000;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-cashback::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: left 0.5s;
+  }
+  .btn-cashback:hover::before { left: 100%; }
+  .btn-cashback:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(0, 255, 136, 0.4);
+  }
+
+  .btn-airdrop {
+    background: linear-gradient(135deg, #00CC66 0%, #00AA55 100%);
+    color: #000000;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-airdrop::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+    transition: left 0.5s;
+  }
+  .btn-airdrop:hover::before { left: 100%; }
+  .btn-airdrop:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(0, 204, 102, 0.4);
+  }
+
+  /* ===== Live dots ===== */
+  .live-dot {
+    width: 8px; height: 8px;
+    background: #00FF88;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+    box-shadow: 0 0 10px #00FF88;
+    flex-shrink: 0;
+  }
+  .live-dot.dim {
+    background: #00CC66;
+    box-shadow: 0 0 10px #00CC66;
+  }
+
+  @keyframes pulse {
+    0% { opacity: 0.5; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.2); }
+    100% { opacity: 0.5; transform: scale(1); }
+  }
+
+  /* ===== Stat cards ===== */
+  .stat-value { transition: all 0.3s ease; }
+  .stat-card:hover .stat-value { transform: scale(1.05); }
+
+  /* ===== Feed items ===== */
+  .tx-item {
+    transition: all 0.2s ease;
+    cursor: default;
+  }
+  .tx-item:hover {
+    background: rgba(0, 255, 136, 0.05);
+    transform: translateX(5px);
+  }
+  .tx-item .copy-btn {
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    cursor: pointer;
+  }
+  .tx-item:hover .copy-btn { opacity: 1; }
+  .copy-btn.copied { color: #00FF88 !important; }
+
+  /* ===== Info boxes ===== */
+  .warning-box {
+    background: rgba(255, 68, 68, 0.05);
+    border-left: 3px solid #FF4444;
+  }
+  .tip-box {
+    background: rgba(0, 255, 136, 0.05);
+    border-left: 3px solid #00FF88;
+  }
+
+  /* ===== Animated progress bar ===== */
+  .progress-bar-fill {
+    width: 0%;
+    transition: width 1.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* ===== Scroll reveal ===== */
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ===== Countdown ===== */
+  .expiring {
+    color: #FF4444 !important;
+    animation: expiring-pulse 1.6s infinite;
+  }
+  @keyframes expiring-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+
+  /* ===== Mobile sticky CTA ===== */
+  .mobile-cta {
+    transform: translateY(120%);
+    transition: transform 0.3s ease;
+  }
+  .mobile-cta.show { transform: translateY(0); }
+
+  /* ===== Skeleton loader ===== */
+  .skeleton {
+    background: linear-gradient(90deg, #141414 25%, #1E1E1E 50%, #141414 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.4s infinite;
+    border-radius: 6px;
+  }
+  @keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+
+  /* ===== Toast ===== */
+  #toastHost {
+    position: fixed;
+    bottom: 90px;
+    right: 16px;
+    z-index: 60;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    pointer-events: none;
+  }
+  .toast {
+    background: rgba(15, 15, 15, 0.95);
+    border: 1px solid rgba(0, 255, 136, 0.4);
+    border-left: 3px solid #00FF88;
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-size: 12px;
+    color: #E5E5E5;
+    box-shadow: 0 10px 30px rgba(0, 255, 136, 0.15);
+    backdrop-filter: blur(10px);
+    animation: toastIn 0.35s ease forwards;
+    max-width: 280px;
+  }
+  .toast.dim {
+    border: 1px solid rgba(0, 204, 102, 0.4);
+    border-left: 3px solid #00CC66;
+    box-shadow: 0 10px 30px rgba(0, 204, 102, 0.15);
+  }
+  .toast.out { animation: toastOut 0.3s ease forwards; }
+  @keyframes toastIn {
+    from { opacity: 0; transform: translateX(30px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes toastOut {
+    from { opacity: 1; transform: translateX(0); }
+    to { opacity: 0; transform: translateX(30px); }
+  }
+
+  /* ===== Range slider ===== */
+  input[type="range"].pump-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 6px;
+    background: #1A1A1A;
+    border-radius: 999px;
+    outline: none;
+  }
+  input[type="range"].pump-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #00FF88;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 0 12px rgba(0, 255, 136, 0.6);
+    border: 3px solid #050505;
+  }
+  input[type="range"].pump-slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: #00FF88;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 0 12px rgba(0, 255, 136, 0.6);
+    border: 3px solid #050505;
+  }
+
+  /* ===== Review card ===== */
+  .review-card { transition: all 0.3s ease; }
+  .review-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(0, 255, 136, 0.4);
+  }
+
+  /* ===== Star rating ===== */
+  .stars { color: #00FF88; letter-spacing: 1px; }
+  .stars .empty { color: #2A2A2A; }
+
+  @media (max-width: 768px) {
+    .container { padding-left: 1rem; padding-right: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================
+     NAVBAR
+============================================ -->
+<header class="sticky top-0 z-50 border-b border-[#1A1A1A] bg-black/95 backdrop-blur-xl">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+
+      <!-- Logo -->
+      <div class="flex items-center gap-3">
+        <div class="relative">
+          <div class="w-10 h-10 bg-gradient-to-br from-[#00FF88] to-[#00AA55] rounded-xl flex items-center justify-center">
+            <i class="ph-bold ph-rocket-launch text-black text-xl"></i>
+          </div>
+          <div class="absolute -top-1 -right-1 w-3 h-3 bg-[#00FF88] rounded-full animate-pulse"></div>
+        </div>
+        <div>
+          <h1 class="text-xl font-black tracking-tight">
+            <span class="text-[#00FF88]">PUMP</span><span class="text-white">FUN</span>
+            <span class="text-xs text-gray-500 ml-1">REWARDS</span>
+          </h1>
+          <p class="text-[10px] text-gray-500 tracking-wider">CASHBACK + AIRDROP HUB</p>
+        </div>
+      </div>
+
+      <!-- Live chips + search -->
+      <div class="flex items-center gap-3 flex-wrap">
+        <div class="hidden sm:flex items-center gap-2 bg-[#0F0F0F] border border-[#1A1A1A] rounded-full px-4 py-2">
+          <div class="live-dot"></div>
+          <span class="text-xs text-gray-400">Solana</span>
+          <span class="text-xs text-[#00FF88] font-mono">Active</span>
+        </div>
+        <div class="hidden sm:flex items-center gap-2 bg-[#0F0F0F] border border-[#1A1A1A] rounded-full px-4 py-2">
+          <div class="live-dot dim"></div>
+          <span class="text-xs text-gray-400">$PUMP</span>
+          <span class="text-xs text-[#00CC66] font-mono">Live</span>
+        </div>
+
+        <div class="flex items-center border border-[#1A1A1A] bg-[#0A0A0A] rounded-full px-4 py-2 w-full sm:w-auto">
+          <i class="ph ph-magnifying-glass text-gray-500 text-sm mr-2"></i>
+          <input type="text" placeholder="Search token or wallet..." class="bg-transparent outline-none text-xs w-full sm:w-48 text-gray-300">
+          <i class="ph ph-sliders text-gray-500 text-sm ml-2 cursor-pointer hover:text-[#00FF88] transition"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
+
+  <!-- ============================================
+       HERO
+  ============================================ -->
+  <div class="mb-8 text-center sm:text-left">
+    <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+      <div>
+        <div class="inline-flex items-center gap-2 bg-[#00FF88]/10 border border-[#00FF88]/20 rounded-full px-4 py-1.5 mb-4">
+          <i class="ph-fill ph-fire text-[#00FF88] text-sm"></i>
+          <span class="text-xs font-mono text-[#00FF88]">ACTIVE CAMPAIGN</span>
+        </div>
+        <h2 class="text-3xl sm:text-5xl font-black tracking-tighter">
+          Claim Your <span class="text-[#00FF88]">Rewards</span>
+        </h2>
+        <p class="text-gray-400 mt-2 text-sm max-w-2xl">
+          PumpFun ecosystem rewards — Trade, earn cashback, and claim exclusive airdrops
+        </p>
+      </div>
+      <div class="grid grid-cols-2 gap-3">
+        <div class="bg-[#0F0F0F] border border-[#1A1A1A] rounded-xl px-5 py-2 text-center">
+          <p class="text-[10px] text-gray-500">TOTAL REWARDS</p>
+          <p class="text-[#00FF88] font-bold text-lg">$2.4M</p>
+        </div>
+        <div class="bg-[#0F0F0F] border border-[#1A1A1A] rounded-xl px-5 py-2 text-center">
+          <p class="text-[10px] text-gray-500">ACTIVE USERS</p>
+          <p class="text-white font-bold text-lg">14.8K</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================
+       CONNECT STRIP
+  ============================================ -->
+  <div class="mb-8 glass-card rounded-xl px-4 sm:px-6 py-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border border-[#1A1A1A]">
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 bg-[#00FF88]/10 rounded-lg flex items-center justify-center flex-shrink-0">
+        <i class="ph-bold ph-plug text-[#00FF88] text-sm"></i>
+      </div>
+      <div>
+        <p class="text-sm font-bold">Wallet not connected</p>
+        <p class="text-[11px] text-gray-500">Connect your Solana wallet to start earning and claiming rewards</p>
+      </div>
+    </div>
+    <a href="./app/index.html" class="btn-cashback rounded-lg px-5 py-2.5 text-xs flex items-center justify-center gap-2 whitespace-nowrap">
+      <i class="ph-bold ph-wallet"></i>
+      CONNECT WALLET
+    </a>
+  </div>
+
+  <!-- ============================================
+       TWO PANELS: CASHBACK + AIRDROP
+  ============================================ -->
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-10">
+
+    <!-- ---------- PANEL 1: CASHBACK (green #00FF88) ---------- -->
+    <div class="neon-border-green rounded-2xl bg-[#0F0F0F] overflow-hidden reveal">
+      <div class="bg-gradient-to-r from-[#00FF8810] to-transparent p-6 border-b border-[#1A1A1A]">
+        <div class="flex items-start justify-between">
+          <div>
+            <div class="flex items-center gap-2 mb-2">
+              <i class="ph-fill ph-hand-coins text-[#00FF88] text-2xl"></i>
+              <h3 class="text-2xl font-black">PUMPFUN CASHBACK</h3>
+            </div>
+            <p class="text-gray-400 text-sm">Earn up to 12% cashback on every trade</p>
+          </div>
+          <div class="bg-[#00FF88]/10 px-3 py-1 rounded-full">
+            <span class="text-[#00FF88] text-xs font-mono">● ACTIVE</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+          <div class="stat-card bg-[#0A0A0A] rounded-xl p-4 border border-[#1A1A1A]">
+            <p class="text-gray-500 text-xs mb-1">YOUR CASHBACK</p>
+            <p class="stat-value text-[#00FF88] text-2xl font-bold">7.84 SOL</p>
+            <p class="text-[10px] text-gray-600 mt-1">≈ $1,140.20 USD</p>
+          </div>
+          <div class="stat-card bg-[#0A0A0A] rounded-xl p-4 border border-[#1A1A1A]">
+            <p class="text-gray-500 text-xs mb-1">CASHBACK RATE</p>
+            <p class="stat-value text-white text-2xl font-bold">8.5%</p>
+            <p class="text-[10px] text-green-500 mt-1">↑ +2.3% this week</p>
+          </div>
+        </div>
+
+        <div class="mb-6">
+          <div class="flex justify-between text-xs mb-2">
+            <span class="text-gray-400">Weekly Volume Progress</span>
+            <span class="text-[#00FF88] font-mono">1,254 / 5,000 SOL</span>
+          </div>
+          <div class="h-2 bg-[#1A1A1A] rounded-full overflow-hidden">
+            <div class="progress-bar-fill h-full bg-gradient-to-r from-[#00FF88] to-[#00CC66] rounded-full" data-width="25.6%"></div>
+          </div>
+          <p class="text-[10px] text-gray-500 mt-2">Reach 5,000 SOL for 12% cashback boost</p>
+        </div>
+
+        <div class="mb-6 space-y-2 text-xs">
+          <div class="flex items-center justify-between p-2 bg-[#0A0A0A] rounded-lg">
+            <span class="text-gray-400">Trade on PumpFun ecosystem</span>
+            <span class="text-[#00FF88]">auto cashback</span>
+          </div>
+          <div class="flex items-center justify-between p-2 bg-[#0A0A0A] rounded-lg">
+            <span class="text-gray-400">Higher volume</span>
+            <span class="text-[#00FF88]">bigger rewards</span>
+          </div>
+          <div class="flex items-center justify-between p-2 bg-[#0A0A0A] rounded-lg">
+            <span class="text-gray-400">Progress resets</span>
+            <span class="text-[#00FF88]">weekly</span>
+          </div>
+        </div>
+
+        <a href="./app/index.html" class="btn-cashback w-full rounded-xl py-4 flex items-center justify-center gap-3 text-sm sm:text-base">
+          <i class="ph-bold ph-wallet"></i>
+          CLAIM CASHBACK REWARDS
+        </a>
+        <p class="text-xs text-gray-500 text-center mt-3">
+          🔒 Redirects to secure wallet connect • Instant claim • No gas fees
+        </p>
+      </div>
+
+      <!-- Cashback feed -->
+      <div class="border-t border-[#1A1A1A] bg-black/30 p-4">
+        <div class="flex items-center justify-between mb-3">
+          <h4 class="text-xs font-bold text-gray-400 flex items-center gap-2">
+            <i class="ph-bold ph-clock-counter-clockwise"></i>
+            LIVE CASHBACK CLAIMS
+          </h4>
+          <span class="text-[10px] text-[#00FF88] animate-pulse">● LIVE</span>
+        </div>
+        <div id="cashbackFeed" class="space-y-2 max-h-56 sm:max-h-64 overflow-y-auto">
+          <div class="skeleton h-10 w-full"></div>
+          <div class="skeleton h-10 w-full"></div>
+          <div class="skeleton h-10 w-full"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---------- PANEL 2: AIRDROP (darker green #00CC66) ---------- -->
+    <div class="neon-border-green-dim rounded-2xl bg-[#0F0F0F] overflow-hidden reveal">
+      <div class="bg-gradient-to-r from-[#00CC6610] to-transparent p-6 border-b border-[#1A1A1A]">
+        <div class="flex items-start justify-between">
+          <div>
+            <div class="flex items-center gap-2 mb-2">
+              <i class="ph-fill ph-gift text-[#00CC66] text-2xl"></i>
+              <h3 class="text-2xl font-black">$PUMP AIRDROP</h3>
+            </div>
+            <p class="text-gray-400 text-sm">Exclusive seasonal airdrops for holders</p>
+          </div>
+          <div class="bg-[#00CC66]/10 px-3 py-1 rounded-full">
+            <span class="text-[#00CC66] text-xs font-mono">ROUND 4</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+          <div class="stat-card bg-[#0A0A0A] rounded-xl p-4 border border-[#1A1A1A]">
+            <p class="text-gray-500 text-xs mb-1">YOUR ALLOCATION</p>
+            <p class="stat-value text-[#00CC66] text-2xl font-bold">1,250 $PUMP</p>
+            <p class="text-[10px] text-gray-600 mt-1">+ 2 Mystery Boxes</p>
+          </div>
+          <div class="stat-card bg-[#0A0A0A] rounded-xl p-4 border border-[#1A1A1A]">
+            <p class="text-gray-500 text-xs mb-1">TOTAL POOL</p>
+            <p class="stat-value text-white text-2xl font-bold">500K $PUMP</p>
+            <p class="text-[10px] text-[#00CC66] mt-1">Limited claim window</p>
+          </div>
+        </div>
+
+        <!-- Tier badge -->
+        <div class="mb-5 bg-[#00CC66]/10 border border-[#00CC66]/30 rounded-xl p-3 flex items-center gap-3">
+          <div class="w-9 h-9 bg-[#00CC66]/20 rounded-lg flex items-center justify-center flex-shrink-0">
+            <i class="ph-fill ph-medal text-[#00CC66]"></i>
+          </div>
+          <div>
+            <p class="text-xs font-bold text-[#00CC66]">YOUR TIER: SILVER</p>
+            <p class="text-[10px] text-gray-400">Hold 2,500 more $PUMP to reach Gold (3x multiplier)</p>
+          </div>
+        </div>
+
+        <!-- Countdown -->
+        <div class="mb-5 bg-[#0A0A0A] rounded-xl p-4 border border-[#1A1A1A]">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs text-gray-400">Claim window ends in:</span>
+            <span id="airdropCountdown" class="text-[#00CC66] font-mono text-sm font-bold">--d --h --m --s</span>
+          </div>
+          <div class="flex items-center gap-2 text-xs text-gray-400">
+            <i class="ph-fill ph-check-circle text-[#00CC66]"></i>
+            <span>Hold min 500 $PUMP for bonus multiplier (2x)</span>
+          </div>
+        </div>
+
+        <!-- Requirements -->
+        <div class="mb-5 space-y-2 text-xs">
+          <div class="flex items-center gap-2 p-2 bg-[#0A0A0A] rounded-lg">
+            <i class="ph-bold ph-wallet text-[#00CC66]"></i>
+            <span class="text-gray-300">Connect Phantom / Solflare / Backpack</span>
+          </div>
+          <div class="flex items-center gap-2 p-2 bg-[#0A0A0A] rounded-lg">
+            <i class="ph-bold ph-check-circle text-[#00CC66]"></i>
+            <span class="text-gray-300">Wallet must be active for at least 7 days</span>
+          </div>
+          <div class="flex items-center gap-2 p-2 bg-[#0A0A0A] rounded-lg">
+            <i class="ph-bold ph-users text-[#00CC66]"></i>
+            <span class="text-gray-300">Hold $PUMP for tier-based allocation</span>
+          </div>
+        </div>
+
+        <a href="./app/index.html" class="btn-airdrop w-full rounded-xl py-4 flex items-center justify-center gap-3 text-sm sm:text-base">
+          <i class="ph-bold ph-coin"></i>
+          CLAIM $PUMP AIRDROP
+        </a>
+        <p class="text-xs text-gray-500 text-center mt-3">
+          🎁 Gas covered • Instant distribution • Bonus NFTs for early claims
+        </p>
+      </div>
+
+      <!-- Airdrop feed -->
+      <div class="border-t border-[#1A1A1A] bg-black/30 p-4">
+        <div class="flex items-center justify-between mb-3">
+          <h4 class="text-xs font-bold text-gray-400 flex items-center gap-2">
+            <i class="ph-bold ph-gift"></i>
+            RECENT AIRDROP CLAIMS
+          </h4>
+          <span class="text-[10px] text-[#00CC66] animate-pulse">● ACTIVE</span>
+        </div>
+        <div id="airdropFeed" class="space-y-2 max-h-56 sm:max-h-64 overflow-y-auto">
+          <div class="skeleton h-10 w-full"></div>
+          <div class="skeleton h-10 w-full"></div>
+          <div class="skeleton h-10 w-full"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================
+       LEADERBOARD TEASER
+  ============================================ -->
+  <div class="mb-10 glass-card rounded-2xl p-6 border border-[#1A1A1A] reveal">
+    <div class="flex items-center justify-between mb-4">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 bg-[#00CC66]/10 rounded-xl flex items-center justify-center">
+          <i class="ph-fill ph-trophy text-[#00CC66] text-xl"></i>
+        </div>
+        <div>
+          <h4 class="text-lg font-bold">Top Claimers This Week</h4>
+          <p class="text-xs text-gray-500">Updated live · All wallets verified</p>
+        </div>
+      </div>
+      <span class="text-[10px] text-[#00CC66] font-mono animate-pulse">● LIVE</span>
+    </div>
+    <div class="overflow-x-auto">
+      <table class="w-full text-xs">
+        <thead>
+          <tr class="text-gray-500 border-b border-[#1A1A1A]">
+            <th class="text-left py-2 font-medium">Rank</th>
+            <th class="text-left py-2 font-medium">Wallet</th>
+            <th class="text-right py-2 font-medium">Claimed</th>
+            <th class="text-right py-2 font-medium">Tier</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="border-b border-[#1A1A1A]">
+            <td class="py-2.5 text-[#00FF88] font-bold">#1 🥇</td>
+            <td class="py-2.5 font-mono text-gray-300">🟢 7xKX…9mF2</td>
+            <td class="py-2.5 text-right text-[#00FF88] font-bold">12,840 $PUMP</td>
+            <td class="py-2.5 text-right"><span class="bg-[#00CC66]/15 text-[#00CC66] px-2 py-0.5 rounded text-[10px] font-bold">DIAMOND</span></td>
+          </tr>
+          <tr class="border-b border-[#1A1A1A]">
+            <td class="py-2.5 text-[#00FF88] font-bold">#2 🥈</td>
+            <td class="py-2.5 font-mono text-gray-300">💚 9mF2…4pQr</td>
+            <td class="py-2.5 text-right text-[#00FF88] font-bold">9,420 $PUMP</td>
+            <td class="py-2.5 text-right"><span class="bg-[#00CC66]/15 text-[#00CC66] px-2 py-0.5 rounded text-[10px] font-bold">GOLD</span></td>
+          </tr>
+          <tr class="border-b border-[#1A1A1A]">
+            <td class="py-2.5 text-[#00FF88] font-bold">#3 🥉</td>
+            <td class="py-2.5 font-mono text-gray-300">⚡ 3aBc…7dEf</td>
+            <td class="py-2.5 text-right text-[#00FF88] font-bold">7,110 $PUMP</td>
+            <td class="py-2.5 text-right"><span class="bg-[#00CC66]/15 text-[#00CC66] px-2 py-0.5 rounded text-[10px] font-bold">GOLD</span></td>
+          </tr>
+          <tr class="border-b border-[#1A1A1A]">
+            <td class="py-2.5 text-gray-500 font-bold">#4</td>
+            <td class="py-2.5 font-mono text-gray-300">✨ Hq2L…8nRt</td>
+            <td class="py-2.5 text-right text-gray-300 font-bold">5,280 $PUMP</td>
+            <td class="py-2.5 text-right"><span class="bg-[#00CC66]/15 text-[#00CC66] px-2 py-0.5 rounded text-[10px] font-bold">SILVER</span></td>
+          </tr>
+          <tr>
+            <td class="py-2.5 text-gray-500 font-bold">#5</td>
+            <td class="py-2.5 font-mono text-gray-300">🔥 Jp9V…2kLm</td>
+            <td class="py-2.5 text-right text-gray-300 font-bold">4,120 $PUMP</td>
+            <td class="py-2.5 text-right"><span class="bg-[#00CC66]/15 text-[#00CC66] px-2 py-0.5 rounded text-[10px] font-bold">SILVER</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ============================================
+       TIER BREAKDOWN
+  ============================================ -->
+  <div class="mb-10 glass-card rounded-2xl p-6 border border-[#1A1A1A] reveal">
+    <div class="flex items-center gap-3 mb-4">
+      <div class="w-10 h-10 bg-[#00CC66]/10 rounded-xl flex items-center justify-center">
+        <i class="ph-fill ph-medal text-[#00CC66] text-xl"></i>
+      </div>
+      <div>
+        <h4 class="text-lg font-bold">$PUMP Holder Tiers</h4>
+        <p class="text-xs text-gray-500">Higher tiers = bigger airdrop allocation</p>
+      </div>
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+      <div class="bg-[#0A0A0A] border border-[#1A1A1A] rounded-xl p-4">
+        <p class="text-[10px] text-gray-500 mb-1">BRONZE</p>
+        <p class="text-sm font-bold text-gray-300">500 – 2,499 $PUMP</p>
+        <p class="text-[10px] text-[#00CC66] mt-1">1x multiplier</p>
+      </div>
+      <div class="bg-[#0A0A0A] border border-[#00CC66]/40 rounded-xl p-4">
+        <p class="text-[10px] text-[#00CC66] mb-1">SILVER ← YOU</p>
+        <p class="text-sm font-bold text-[#00CC66]">2,500 – 9,999 $PUMP</p>
+        <p class="text-[10px] text-[#00CC66] mt-1">2x multiplier</p>
+      </div>
+      <div class="bg-[#0A0A0A] border border-[#1A1A1A] rounded-xl p-4">
+        <p class="text-[10px] text-gray-500 mb-1">GOLD</p>
+        <p class="text-sm font-bold text-gray-300">10,000 – 49,999 $PUMP</p>
+        <p class="text-[10px] text-[#00CC66] mt-1">3x multiplier</p>
+      </div>
+      <div class="bg-[#0A0A0A] border border-[#1A1A1A] rounded-xl p-4">
+        <p class="text-[10px] text-gray-500 mb-1">DIAMOND</p>
+        <p class="text-sm font-bold text-gray-300">50,000+ $PUMP</p>
+        <p class="text-[10px] text-[#00FF88] mt-1">5x multiplier</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================
+       USER REVIEWS
+  ============================================ -->
+  <div class="mb-10">
+    <div class="text-center mb-6">
+      <div class="inline-flex items-center gap-2 bg-[#00FF88]/10 border border-[#00FF88]/20 rounded-full px-4 py-1.5 mb-3">
+        <i class="ph-fill ph-star text-[#00FF88] text-sm"></i>
+        <span class="text-xs font-mono text-[#00FF88]">WHAT HOLDERS ARE SAYING</span>
+      </div>
+      <h3 class="text-2xl sm:text-3xl font-black">Real Rewards, Real Claims</h3>
+      <p class="text-gray-400 text-sm mt-2">Verified holder feedback from recent claim rounds</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <!-- Review 1 -->
+      <div class="review-card glass-card rounded-2xl p-5 border border-[#1A1A1A] reveal">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-10 h-10 bg-[#00FF88]/15 rounded-full flex items-center justify-center text-lg">🟢</div>
+          <div class="flex-1 min-w-0">
+            <p class="text-sm font-bold font-mono text-[#00FF88] truncate">@7xKX…9mF2</p>
+            <p class="text-[10px] text-gray-500 flex items-center gap-1">
+              <i class="ph-fill ph-check-circle text-[#00CC66]"></i> Verified claim · 2h ago
+            </p>
+          </div>
+        </div>
+        <div class="stars text-sm mb-2">★★★★★</div>
+        <p class="text-xs text-gray-300 leading-relaxed mb-3">"Grabbed +3,200 $PUMP on Round 3. Connected Phantom, signed once, done in under 30 seconds."</p>
+        <div class="bg-[#00FF88]/10 border border-[#00FF88]/20 rounded-lg px-3 py-2 text-xs flex items-center justify-between">
+          <span class="text-gray-400">Grabbed:</span>
+          <span class="text-[#00FF88] font-bold font-mono">+3,200 $PUMP</span>
+        </div>
+      </div>
+
+      <!-- Review 2 -->
+      <div class="review-card glass-card rounded-2xl p-5 border border-[#1A1A1A] reveal">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-10 h-10 bg-[#00FF88]/15 rounded-full flex items-center justify-center text-lg">💚</div>
+          <div class="flex-1 min-w-0">
+            <p class="text-sm font-bold font-mono text-[#00FF88] truncate">@9mF2…4pQr</p>
+            <p class="text-[10px] text-gray-500 flex items-center gap-1">
+              <i class="ph-fill ph-check-circle text-[#00CC66]"></i> Verified claim · 6h ago
+            </p>
+          </div>
+        </div>
+        <div class="stars text-sm mb-2">★★★★★</div>
+        <p class="text-xs text-gray-300 leading-relaxed mb-3">"Cashback hit +1.84 SOL last week just from my normal PumpFun trades. Didn't change anything."</p>
+        <div class="bg-[#00FF88]/10 border border-[#00FF88]/20 rounded-lg px-3 py-2 text-xs flex items-center justify-between">
+          <span class="text-gray-400">Grabbed:</span>
+          <span class="text-[#00FF88] font-bold font-mono">+1.84 SOL</span>
+        </div>
+      </div>
+
+      <!-- Review 3 -->
+      <div class="review-card glass-card rounded-2xl p-5 border border-[#1A1A1A] reveal">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-10 h-10 bg-[#00FF88]/15 rounded-full flex items-center justify-center text-lg">⚡</div>
+          <div class="flex-1 min-w-0">
+            <p class="text-sm font-bold font-mono text-[#00FF88] truncate">@3aBc…7dEf</p>
+            <p class="text-[10px] text-gray-500 flex items-center gap-1">
+              <i class="ph-fill ph-check-circle text-[#00CC66]"></i> Verified claim · 1d ago
+            </p>
+          </div>
+        </div>
+        <div class="stars text-sm mb-2">★★★★<span class="empty">★</span></div>
+        <p class="text-xs text-gray-300 leading-relaxed mb-3">"Airdrop landed but I waited until the last day. Don't do that — claim early for bonus boxes."</p>
+        <div class="bg-[#00FF88]/10 border border-[#00FF88]/20 rounded-lg px-3 py-2 text-xs flex items-center justify-between">
+          <span class="text-gray-400">Grabbed:</span>
+          <span class="text-[#00FF88] font-bold font-mono">+980 $PUMP</span>
+        </div>
+      </div>
+
+      <!-- Review 4 -->
+      <div class="review-card glass-card rounded-2xl p-5 border border-[#1A1A1A] reveal">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-10 h-10 bg-[#00FF88]/15 rounded-full flex items-center justify-center text-lg">✨</div>
+          <div class="flex-1 min-w-0">
+            <p class="text-sm font-bold font-mono text-[#00FF88] truncate">@Hq2L…8nRt</p>
+            <p class="text-[10px] text-gray-500 flex items-center gap-1">
+              <i class="ph-fill ph-check-circle text-[#00CC66]"></i> Verified claim · 1d ago
+            </p>
+          </div>
+        </div>
+        <div class="stars text-sm mb-2">★★★★★</div>
+        <p class="text-xs text-gray-300 leading-relaxed mb-3">"Silver tier here — 2x multiplier on my 1,250 $PUMP allocation. Worth holding."</p>
+        <div class="bg-[#00FF88]/10 border border-[#00FF88]/20 rounded-lg px-3 py-2 text-xs flex items-center justify-between">
+          <span class="text-gray-400">Grabbed:</span>
+          <span class="text-[#00FF88] font-bold font-mono">+2,500 $PUMP</span>
+        </div>
+      </div>
+
+      <!-- Review 5 -->
+      <div class="review-card glass-card rounded-2xl p-5 border border-[#1A1A1A] reveal">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-10 h-10 bg-[#00FF88]/15 rounded-full flex items-center justify-center text-lg">🔥</div>
+          <div class="flex-1 min-w-0">
+            <p class="text-sm font-bold font-mono text-[#00FF88] truncate">@Jp9V…2kLm</p>
+            <p class="text-[10px] text-gray-500 flex items-center gap-1">
+              <i class="ph-fill ph-check-circle text-[#00CC66]"></i> Verified claim · 2d ago
+            </p>
+          </div>
+        </div>
+        <div class="stars text-sm mb-2">★★★★★</div>
+        <p class="text-xs text-gray-300 leading-relaxed mb-3">"Best cashback rate I've seen on Solana. 8.5% weekly, instant claim. Made +3.2 SOL last month."</p>
+        <div class="bg-[#00FF88]/10 border border-[#00FF88]/20 rounded-lg px-3 py-2 text-xs flex items-center justify-between">
+          <span class="text-gray-400">Grabbed:</span>
+          <span class="text-[#00FF88] font-bold font-mono">+3.2 SOL</span>
+        </div>
+      </div>
+
+      <!-- Review 6 -->
+      <div class="review-card glass-card rounded-2xl p-5 border border-[#1A1A1A] reveal">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-10 h-10 bg-[#00FF88]/15 rounded-full flex items-center justify-center text-lg">⭐</div>
+          <div class="flex-1 min-w-0">
+            <p class="text-sm font-bold font-mono text-[#00FF88] truncate">@Fs4X…6tYu</p>
+            <p class="text-[10px] text-gray-500 flex items-center gap-1">
+              <i class="ph-fill ph-check-circle text-[#00CC66]"></i> Verified claim · 3d ago
+            </p>
+          </div>
+        </div>
+        <div class="stars text-sm mb-2">★★★★<span class="empty">★</span></div>
+        <p class="text-xs text-gray-300 leading-relaxed mb-3">"Legit. Grabbed +740 $PUMP from the bonus round after referring two friends."</p>
+        <div class="bg-[#00FF88]/10 border border-[#00FF88]/20 rounded-lg px-3 py-2 text-xs flex items-center justify-between">
+          <span class="text-gray-400">Grabbed:</span>
+          <span class="text-[#00FF88] font-bold font-mono">+740 $PUMP</span>
+        </div>
+      </div>
+    </div>
+
+    <p class="text-[10px] text-gray-600 text-center mt-4">
+      Reviews are illustrative. Actual rewards depend on eligibility, tier, and volume.
+    </p>
+  </div>
+
+  <!-- ============================================
+       REWARDS CALCULATOR
+  ============================================ -->
+  <div class="mb-10 glass-card rounded-2xl p-6 border border-[#1A1A1A] reveal">
+    <div class="flex items-center gap-3 mb-5">
+      <div class="w-10 h-10 bg-[#00FF88]/10 rounded-xl flex items-center justify-center">
+        <i class="ph-bold ph-calculator text-[#00FF88] text-xl"></i>
+      </div>
+      <div>
+        <h4 class="text-lg font-bold">Estimate Your Airdrop</h4>
+        <p class="text-xs text-gray-500">Slide to see your estimated $PUMP allocation and tier</p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-center">
+      <div>
+        <div class="flex items-center justify-between mb-3">
+          <label class="text-xs text-gray-400">$PUMP holdings</label>
+          <span id="calcHoldings" class="text-[#00FF88] font-mono text-sm font-bold">1,250 $PUMP</span>
+        </div>
+        <input id="calcSlider" type="range" min="0" max="100000" step="250" value="1250" class="pump-slider">
+        <div class="flex justify-between text-[10px] text-gray-600 mt-2">
+          <span>0</span>
+          <span>50K</span>
+          <span>100K</span>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-3">
+        <div class="bg-[#0A0A0A] rounded-xl p-4 border border-[#1A1A1A]">
+          <p class="text-[10px] text-gray-500 mb-1">ESTIMATED AIRDROP</p>
+          <p id="calcAirdrop" class="text-[#00FF88] text-xl font-bold">~1,250 $PUMP</p>
+          <p class="text-[10px] text-gray-600 mt-1">Based on 1x baseline</p>
+        </div>
+        <div class="bg-[#0A0A0A] rounded-xl p-4 border border-[#1A1A1A]">
+          <p class="text-[10px] text-gray-500 mb-1">YOUR TIER</p>
+          <p id="calcTier" class="text-[#00CC66] text-xl font-bold">SILVER</p>
+          <p id="calcMultiplier" class="text-[10px] text-gray-600 mt-1">2x multiplier</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================
+       GUIDE: HOW TO GRAB YOUR REWARDS
+  ============================================ -->
+  <div class="mt-10 space-y-6">
+
+    <div class="text-center mb-6">
+      <div class="inline-flex items-center gap-2 bg-[#00FF88]/10 border border-[#00FF88]/20 rounded-full px-4 py-1.5 mb-3">
+        <i class="ph-fill ph-book-open text-[#00FF88] text-sm"></i>
+        <span class="text-xs font-mono text-[#00FF88]">HOW TO PARTICIPATE</span>
+      </div>
+      <h3 class="text-2xl sm:text-3xl font-black">How to Grab Your Rewards</h3>
+      <p class="text-gray-400 text-sm mt-2">Connect, earn, and claim — complete walkthrough</p>
+    </div>
+
+    <!-- 3-step flow -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+      <div class="glass-card rounded-2xl p-6 border border-[#1A1A1A] reveal">
+        <div class="w-10 h-10 bg-[#00FF88] rounded-full flex items-center justify-center text-black text-sm font-black mb-4">1</div>
+        <h4 class="text-base font-bold mb-2">Connect Your Wallet</h4>
+        <p class="text-xs text-gray-400 leading-relaxed">Use Phantom, Solflare, Backpack, or Glow. Never use an exchange (CEX) wallet — they can't sign transactions.</p>
+      </div>
+      <div class="glass-card rounded-2xl p-6 border border-[#1A1A1A] reveal">
+        <div class="w-10 h-10 bg-[#00FF88] rounded-full flex items-center justify-center text-black text-sm font-black mb-4">2</div>
+        <h4 class="text-base font-bold mb-2">Earn or Hold</h4>
+        <p class="text-xs text-gray-400 leading-relaxed">Trade on the PumpFun ecosystem to accrue cashback. Hold at least 500 $PUMP to qualify for airdrop multipliers.</p>
+      </div>
+      <div class="glass-card rounded-2xl p-6 border border-[#1A1A1A] reveal">
+        <div class="w-10 h-10 bg-[#00FF88] rounded-full flex items-center justify-center text-black text-sm font-black mb-4">3</div>
+        <h4 class="text-base font-bold mb-2">Claim Your Rewards</h4>
+        <p class="text-xs text-gray-400 leading-relaxed">Click Claim → approve the transaction → rewards land instantly. Keep ~0.002 SOL in your wallet for gas.</p>
+      </div>
+    </div>
+
+    <!-- Wallet guide + eligibility -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+      <div class="glass-card rounded-2xl p-6 border border-[#1A1A1A] reveal">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-10 h-10 bg-[#00FF88]/10 rounded-xl flex items-center justify-center">
+            <i class="ph-bold ph-wallet text-[#00FF88] text-xl"></i>
+          </div>
+          <h4 class="text-lg font-bold">Wallet Connection Guide</h4>
+        </div>
+        <div class="space-y-3">
+          <div class="flex items-center justify-between p-3 bg-[#0A0A0A] rounded-lg border border-[#1A1A1A]">
+            <div class="flex items-center gap-2">
+              <i class="ph-fill ph-check-circle text-[#00FF88] text-sm"></i>
+              <span class="text-sm font-mono">Phantom Wallet</span>
+            </div>
+            <span class="text-xs text-green-500">✓ Recommended</span>
+          </div>
+          <div class="flex items-center justify-between p-3 bg-[#0A0A0A] rounded-lg border border-[#1A1A1A]">
+            <div class="flex items-center gap-2">
+              <i class="ph-fill ph-check-circle text-[#00FF88] text-sm"></i>
+              <span class="text-sm font-mono">Solflare Wallet</span>
+            </div>
+            <span class="text-xs text-green-500">✓ Fully Supported</span>
+          </div>
+          <div class="flex items-center justify-between p-3 bg-[#0A0A0A] rounded-lg border border-[#1A1A1A]">
+            <div class="flex items-center gap-2">
+              <i class="ph-fill ph-check-circle text-[#00FF88] text-sm"></i>
+              <span class="text-sm font-mono">Backpack Wallet</span>
+            </div>
+            <span class="text-xs text-green-500">✓ Active</span>
+          </div>
+          <div class="flex items-center justify-between p-3 bg-[#0A0A0A] rounded-lg border border-[#1A1A1A]">
+            <div class="flex items-center gap-2">
+              <i class="ph-fill ph-check-circle text-[#00FF88] text-sm"></i>
+              <span class="text-sm font-mono">Glow Wallet</span>
+            </div>
+            <span class="text-xs text-gray-500">Beta Support</span>
+          </div>
+        </div>
+        <div class="mt-4 warning-box p-3 rounded-lg text-xs">
+          <i class="ph-bold ph-shield-warning text-[#FF4444] mr-2"></i>
+          <span class="text-gray-300">⚠️ IMPORTANT: Use only self-custody wallets you use for trading. Do NOT use exchange wallets (CEX) — they don't support smart contract interactions.</span>
+        </div>
+      </div>
+
+      <div class="glass-card rounded-2xl p-6 border border-[#1A1A1A] reveal">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-10 h-10 bg-[#00CC66]/10 rounded-xl flex items-center justify-center">
+            <i class="ph-bold ph-seal-check text-[#00CC66] text-xl"></i>
+          </div>
+          <h4 class="text-lg font-bold">Eligibility Requirements</h4>
+        </div>
+        <ul class="space-y-3 text-sm">
+          <li class="flex items-start gap-3">
+            <i class="ph-bold ph-check-circle text-[#00FF88] text-sm mt-0.5"></i>
+            <span class="text-gray-300">Must have traded at least <strong class="text-[#00FF88]">100 SOL volume</strong> in the last 30 days</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <i class="ph-bold ph-check-circle text-[#00FF88] text-sm mt-0.5"></i>
+            <span class="text-gray-300">Wallet must be <strong class="text-[#00FF88]">active for at least 7 days</strong> (anti-bot measure)</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <i class="ph-bold ph-check-circle text-[#00FF88] text-sm mt-0.5"></i>
+            <span class="text-gray-300">No previous claim abuse or suspicious activity</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <i class="ph-bold ph-check-circle text-[#00FF88] text-sm mt-0.5"></i>
+            <span class="text-gray-300">Hold <strong class="text-[#00CC66]">500+ $PUMP</strong> for airdrop tier allocation</span>
+          </li>
+        </ul>
+        <div class="mt-4 tip-box p-3 rounded-lg text-xs">
+          <i class="ph-bold ph-lightbulb text-[#00FF88] mr-2"></i>
+          <span class="text-gray-300"><strong class="text-white">PRO TIP:</strong> Use the same wallet for trading and claiming. Wallet history affects your reward multipliers!</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Rules two-col -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+      <div class="space-y-6">
+        <div class="glass-card rounded-2xl p-6 border border-[#1A1A1A] reveal">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 bg-[#00FF88]/10 rounded-xl flex items-center justify-center">
+              <i class="ph-bold ph-hand-coins text-[#00FF88] text-xl"></i>
+            </div>
+            <h4 class="text-lg font-bold">Cashback Rules</h4>
+          </div>
+          <ul class="space-y-3 text-sm">
+            <li class="flex items-start gap-3">
+              <i class="ph-bold ph-check-circle text-[#00FF88] text-sm mt-0.5"></i>
+              <span class="text-gray-300">Every buy/sell on PumpFun generates <strong class="text-[#00FF88]">auto cashback in SOL</strong></span>
+            </li>
+            <li class="flex items-start gap-3">
+              <i class="ph-bold ph-check-circle text-[#00FF88] text-sm mt-0.5"></i>
+              <span class="text-gray-300">Weekly snapshot every <strong class="text-white">Friday at 00:00 UTC</strong></span>
+            </li>
+            <li class="flex items-start gap-3">
+              <i class="ph-bold ph-check-circle text-[#00FF88] text-sm mt-0.5"></i>
+              <span class="text-gray-300">Reach 5,000 SOL weekly volume for <strong class="text-white">12% boost</strong></span>
+            </li>
+            <li class="flex items-start gap-3">
+              <i class="ph-bold ph-check-circle text-[#00FF88] text-sm mt-0.5"></i>
+              <span class="text-gray-300">No maximum claim — rewards accumulate indefinitely</span>
+            </li>
+          </ul>
+        </div>
+        <div class="warning-box rounded-xl p-4">
+          <div class="flex items-start gap-3">
+            <i class="ph-fill ph-shield-warning text-[#FF4444] text-lg"></i>
+            <div>
+              <p class="text-sm font-bold text-[#FF4444] mb-1">CASHBACK IMPORTANT</p>
+              <p class="text-xs text-gray-300">• Use the wallet you actually trade with<br>
+              • Volume from wash trading does not count<br>
+              • VPN users may require additional verification<br>
+              • Keep ~0.002 SOL for claim gas fees</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="space-y-6">
+        <div class="glass-card rounded-2xl p-6 border border-[#1A1A1A] reveal">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 bg-[#00CC66]/10 rounded-xl flex items-center justify-center">
+              <i class="ph-bold ph-gift text-[#00CC66] text-xl"></i>
+            </div>
+            <h4 class="text-lg font-bold">Airdrop Rules</h4>
+          </div>
+          <ul class="space-y-3 text-sm">
+            <li class="flex items-start gap-3">
+              <i class="ph-bold ph-check-circle text-[#00CC66] text-sm mt-0.5"></i>
+              <span class="text-gray-300">Hold minimum <strong class="text-[#00CC66]">500 $PUMP</strong> (self-custody only)</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <i class="ph-bold ph-check-circle text-[#00CC66] text-sm mt-0.5"></i>
+              <span class="text-gray-300">Supported wallets: <strong>Phantom, Solflare, Backpack, Glow</strong></span>
+            </li>
+            <li class="flex items-start gap-3">
+              <i class="ph-bold ph-check-circle text-[#00CC66] text-sm mt-0.5"></i>
+              <span class="text-gray-300">Airdrop snapshots happen <strong class="text-white">randomly each round</strong></span>
+            </li>
+            <li class="flex items-start gap-3">
+              <i class="ph-bold ph-check-circle text-[#00CC66] text-sm mt-0.5"></i>
+              <span class="text-gray-300">Claim within <strong class="text-[#FF4444]">7 days</strong> — unclaimed rewards are redistributed</span>
+            </li>
+          </ul>
+        </div>
+        <div class="tip-box rounded-xl p-4">
+          <div class="flex items-start gap-3">
+            <i class="ph-fill ph-lightbulb text-[#00FF88] text-lg"></i>
+            <div>
+              <p class="text-sm font-bold text-[#00CC66] mb-1">AIRDROP PRO TIPS</p>
+              <p class="text-xs text-gray-300">• Higher $PUMP holdings = bigger allocation<br>
+              • Active traders get up to <strong>3x multiplier</strong><br>
+              • Referral bonuses: extra $PUMP per active referral<br>
+              • Early claims may receive bonus Mystery Boxes</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EXPANDED FAQ -->
+    <div class="glass-card rounded-2xl p-6 border border-[#1A1A1A] reveal">
+      <div class="flex items-center gap-3 mb-4">
+        <i class="ph-fill ph-question text-[#00FF88] text-xl"></i>
+        <h4 class="text-lg font-bold">Quick FAQ</h4>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div class="space-y-1">
+          <p class="text-sm font-bold text-[#00FF88]">Q: Can I earn cashback and claim airdrops?</p>
+          <p class="text-xs text-gray-400">A: Yes! They're independent. Trade for cashback and hold $PUMP for airdrop tiers — both use the same wallet.</p>
+        </div>
+        <div class="space-y-1">
+          <p class="text-sm font-bold text-[#00CC66]">Q: What if I use an exchange wallet?</p>
+          <p class="text-xs text-gray-400">A: Exchange wallets (Binance,bybit, Coinbase) are NOT eligible. Use self-custody wallets only(phantom,solflare,bacckpack).</p>
+        </div>
+        <div class="space-y-1">
+          <p class="text-sm font-bold text-[#00FF88]">Q: How often is cashback calculated?</p>
+          <p class="text-xs text-gray-400">A: Real-time. Every transaction instantly adds to your claimable balance in SOL.</p>
+        </div>
+        <div class="space-y-1">
+          <p class="text-sm font-bold text-[#00CC66]">Q: Are airdrops taxable?</p>
+          <p class="text-xs text-gray-400">A: Check local laws. We provide full transaction history for tax reporting.</p>
+        </div>
+        <div class="space-y-1">
+          <p class="text-sm font-bold text-[#00FF88]">Q: How is my airdrop allocation calculated?</p>
+          <p class="text-xs text-gray-400">A: Based on a random snapshot of your $PUMP holdings × your tier multiplier (1x–5x).</p>
+        </div>
+        <div class="space-y-1">
+          <p class="text-sm font-bold text-[#00CC66]">Q: What happens to unclaimed airdrops?</p>
+          <p class="text-xs text-gray-400">A: Unclaimed rewards after 20 days are redistributed to active claimers in the next round.</p>
+        </div>
+        <div class="space-y-1">
+          <p class="text-sm font-bold text-[#00FF88]">Q: Do I need SOL for gas?</p>
+          <p class="text-xs text-gray-400">A: Yes — keep ~0.002 SOL in your wallet for the claim transaction. Most rewards cost less than 0.001 SOL in gas.</p>
+        </div>
+        <div class="space-y-1">
+          <p class="text-sm font-bold text-[#00CC66]">Q: Can I use multiple wallets?</p>
+          <p class="text-xs text-gray-400">A: Yes, but each wallet must independently meet volume and holding requirements. Rewards are per-wallet.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- ============================================
+     FOOTER
+============================================ -->
+<footer class="border-t border-[#1A1A1A] mt-12 bg-black/50 pb-24 sm:pb-0">
+  <div class="max-w-7xl mx-auto px-6 py-10">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-8 text-sm">
+      <div>
+        <div class="flex items-center gap-2 mb-4">
+          <i class="ph-bold ph-rocket-launch text-[#00FF88] text-xl"></i>
+          <h3 class="font-black tracking-tight">PUMPFUN</h3>
+        </div>
+        <p class="text-gray-500 text-xs leading-relaxed">Next-gen rewards platform on Solana</p>
+      </div>
+      <div>
+        <h4 class="text-[#00FF88] text-xs font-bold mb-3">CASHBACK</h4>
+        <ul class="text-gray-500 text-xs space-y-2">
+          <li class="hover:text-[#00FF88] transition cursor-pointer">Dashboard</li>
+          <li class="hover:text-[#00FF88] transition cursor-pointer">Rewards Calculator</li>
+          <li class="hover:text-[#00FF88] transition cursor-pointer">Leaderboard</li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-[#00CC66] text-xs font-bold mb-3">AIRDROP</h4>
+        <ul class="text-gray-500 text-xs space-y-2">
+          <li class="hover:text-[#00CC66] transition cursor-pointer">Season 4</li>
+          <li class="hover:text-[#00CC66] transition cursor-pointer">Mystery Boxes</li>
+          <li class="hover:text-[#00CC66] transition cursor-pointer">Eligibility Check</li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-gray-400 text-xs font-bold mb-3">COMMUNITY</h4>
+        <ul class="text-gray-500 text-xs space-y-2">
+          <li class="hover:text-white transition cursor-pointer">Discord</li>
+          <li class="hover:text-white transition cursor-pointer">X (Twitter)</li>
+          <li class="hover:text-white transition cursor-pointer">Telegram</li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-gray-400 text-xs font-bold mb-3">RESOURCES</h4>
+        <ul class="text-gray-500 text-xs space-y-2">
+          <li class="hover:text-white transition cursor-pointer">Documentation</li>
+          <li class="hover:text-white transition cursor-pointer">Audit Report</li>
+          <li class="hover:text-white transition cursor-pointer">Support</li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-[#1A1A1A] mt-8 pt-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-gray-500">
+      <p>© 2026 PumpFun — Cashback + Airdrop Protocol</p>
+      <div class="flex gap-6">
+        <a href="#" class="hover:text-[#00FF88] transition">Terms</a>
+        <a href="#" class="hover:text-[#00FF88] transition">Privacy</a>
+        <a href="#" class="hover:text-[#00FF88] transition">Status</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- MOBILE STICKY CTA -->
+<div id="mobileCta" class="mobile-cta fixed bottom-0 left-0 right-0 z-40 sm:hidden p-3 bg-black/95 backdrop-blur-xl border-t border-[#1A1A1A]">
+  <a href="./app/index.html" class="btn-airdrop w-full rounded-xl py-3.5 flex items-center justify-center gap-2 text-sm">
+    <i class="ph-bold ph-wallet"></i>
+    CLAIM $PUMP REWARDS
+  </a>
+</div>
+
+<!-- TOAST HOST -->
+<div id="toastHost"></div>
+
+<!-- ============================================
+     SCRIPTS
+============================================ -->
+<script>
+  /* ============================================================
+     FEED DATA
+  ============================================================ */
+  const cashbackContainer = document.getElementById("cashbackFeed");
+  const airdropContainer = document.getElementById("airdropFeed");
+
+  const cashbackUsers = ["🟢 7xKX…9mF2", "💚 9mF2…4pQr", "⚡ 3aBc…7dEf", "🔥 Hq2L…8nRt", "⭐ Jp9V…2kLm", "✨ Fs4X…6tYu"];
+  const airdropUsers  = ["🎁 4kLm…8pQr", "✨ 8nRt…2vWx", "🔮 2vWx…6yZa", "💚 6yZa…1bCd", "🟢 1bCd…5eFg", "⭐ 5eFg…9hIj"];
+
+  /* Remove skeleton loaders after a short delay, then seed */
+  function clearSkeletons(container) {
+    container.querySelectorAll(".skeleton").forEach((s) => s.remove());
+  }
+
+  function formatSol(v) {
+    return v.toFixed(v < 0.1 ? 3 : 2);
+  }
+
+  /* ============================================================
+     RENDER FEED ITEM
+  ============================================================ */
+  function renderCashbackItem(user, amount, type, timestamp) {
+    const div = document.createElement("div");
+    div.className = "tx-item group flex justify-between items-center py-2 px-2 rounded-lg border-b border-[#1A1A1A]";
+    div.dataset.ts = timestamp;
+    div.innerHTML = `
+      <div class="flex items-center gap-2 min-w-0">
+        <div class="w-6 h-6 bg-[#00FF88]/10 rounded-full flex items-center justify-center flex-shrink-0">
+          <i class="ph-bold ph-user text-[#00FF88] text-xs"></i>
+        </div>
+        <div class="min-w-0">
+          <p class="text-xs font-mono text-[#00FF88] flex items-center gap-1">
+            <span class="truncate">${user}</span>
+            <i class="ph ph-copy copy-btn text-gray-600 text-[10px] flex-shrink-0" data-copy="${user}"></i>
+          </p>
+          <p class="text-[10px] text-gray-500">${type}</p>
+        </div>
+      </div>
+      <div class="text-right flex-shrink-0 ml-2">
+        <p class="text-xs font-bold text-[#00FF88] font-mono">+${amount} SOL</p>
+        <p class="text-[9px] text-gray-500 feed-ts">just now</p>
+      </div>
+    `;
+    return div;
+  }
+
+  function renderAirdropItem(user, amount, box, timestamp) {
+    const div = document.createElement("div");
+    div.className = "tx-item group flex justify-between items-center py-2 px-2 rounded-lg border-b border-[#1A1A1A]";
+    div.dataset.ts = timestamp;
+    div.innerHTML = `
+      <div class="flex items-center gap-2 min-w-0">
+        <div class="w-6 h-6 bg-[#00CC66]/10 rounded-full flex items-center justify-center flex-shrink-0">
+          <i class="ph-bold ph-gift text-[#00CC66] text-xs"></i>
+        </div>
+        <div class="min-w-0">
+          <p class="text-xs font-mono text-[#00CC66] flex items-center gap-1">
+            <span class="truncate">${user}</span>
+            <i class="ph ph-copy copy-btn text-gray-600 text-[10px] flex-shrink-0" data-copy="${user}"></i>
+          </p>
+          <p class="text-[10px] text-gray-500">${box}</p>
+        </div>
+      </div>
+      <div class="text-right flex-shrink-0 ml-2">
+        <p class="text-xs font-bold text-[#00CC66] font-mono">+${amount} $PUMP</p>
+        <p class="text-[9px] text-gray-500 feed-ts">just now</p>
+      </div>
+    `;
+    return div;
+  }
+
+  /* ============================================================
+     SPAWNERS
+  ============================================================ */
+  function spawnCashback(notify) {
+    const user = cashbackUsers[Math.floor(Math.random() * cashbackUsers.length)];
+    const amount = formatSol(Math.random() * 4 + 0.05);
+    const type = ["Cashback", "Referral", "Bonus Round"][Math.floor(Math.random() * 3)];
+    const now = Date.now();
+    const el = renderCashbackItem(user, amount, type, now);
+    cashbackContainer.prepend(el);
+    while (cashbackContainer.children.length > 8) {
+      cashbackContainer.removeChild(cashbackContainer.lastChild);
+    }
+    if (notify) showToast(`🟢 New cashback: +${amount} SOL`, false);
+  }
+
+  function spawnAirdrop(notify) {
+    const user = airdropUsers[Math.floor(Math.random() * airdropUsers.length)];
+    const amount = Math.floor(Math.random() * 250) + 25;
+    const box = ["Mystery Box", "Tier 2 Drop", "Bonus Airdrop"][Math.floor(Math.random() * 3)];
+    const now = Date.now();
+    const el = renderAirdropItem(user, amount, box, now);
+    airdropContainer.prepend(el);
+    while (airdropContainer.children.length > 8) {
+      airdropContainer.removeChild(airdropContainer.lastChild);
+    }
+    if (notify) showToast(`🎁 New airdrop: +${amount} $PUMP`, true);
+  }
+
+  /* ============================================================
+     INITIAL SEED
+  ============================================================ */
+  setTimeout(() => {
+    clearSkeletons(cashbackContainer);
+    clearSkeletons(airdropContainer);
+    for (let i = 0; i < 5; i++) {
+      setTimeout(() => spawnCashback(false), i * 150);
+      setTimeout(() => spawnAirdrop(false), i * 180);
+    }
+  }, 850);
+
+  /* Background loop (no toasts, keeps feed alive) */
+  setInterval(() => spawnCashback(false), 3200);
+  setInterval(() => spawnAirdrop(false), 3800);
+
+  /* Occasional toast — every ~25s alternating */
+  let toastToggle = false;
+  setInterval(() => {
+    toastToggle = !toastToggle;
+    if (toastToggle) spawnCashback(true);
+    else spawnAirdrop(true);
+  }, 25000);
+
+  /* ============================================================
+     RELATIVE TIMESTAMPS ("just now" → "12s ago")
+  ============================================================ */
+  function updateTimestamps() {
+    const now = Date.now();
+    document.querySelectorAll(".tx-item").forEach((item) => {
+      const ts = parseInt(item.dataset.ts || now);
+      const diff = Math.floor((now - ts) / 1000);
+      const el = item.querySelector(".feed-ts");
+      if (!el) return;
+      if (diff < 5) el.textContent = "just now";
+      else if (diff < 60) el.textContent = `${diff}s ago`;
+      else if (diff < 3600) el.textContent = `${Math.floor(diff / 60)}m ago`;
+      else el.textContent = `${Math.floor(diff / 3600)}h ago`;
+    });
+  }
+  setInterval(updateTimestamps, 5000);
+
+  /* ============================================================
+     COPY TO CLIPBOARD
+  ============================================================ */
+  document.addEventListener("click", (e) => {
+    const btn = e.target.closest(".copy-btn");
+    if (!btn) return;
+    const text = btn.dataset.copy || "";
+    navigator.clipboard?.writeText(text).then(() => {
+      btn.classList.add("copied");
+      btn.classList.remove("ph-copy");
+      btn.classList.add("ph-check");
+      setTimeout(() => {
+        btn.classList.remove("copied");
+        btn.classList.remove("ph-check");
+        btn.classList.add("ph-copy");
+      }, 1400);
+    }).catch(() => {});
+  });
+
+  /* ============================================================
+     COUNTDOWN
+  ============================================================ */
+  const countdownTarget = Date.now() + (14 * 24 * 60 * 60 * 1000) + (6 * 60 * 60 * 1000) + (22 * 60 * 1000);
+  const countdownEl = document.getElementById("airdropCountdown");
+
+  function updateCountdown() {
+    const diff = countdownTarget - Date.now();
+    if (diff <= 0) {
+      countdownEl.textContent = "EXPIRED";
+      countdownEl.classList.add("expiring");
+      return;
+    }
+    const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const m = Math.floor((diff / (1000 * 60)) % 60);
+    const s = Math.floor((diff / 1000) % 60);
+    countdownEl.textContent = `${d}d ${String(h).padStart(2, "0")}h ${String(m).padStart(2, "0")}m ${String(s).padStart(2, "0")}s`;
+    countdownEl.classList.toggle("expiring", diff < 48 * 60 * 60 * 1000);
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  /* ============================================================
+     ANIMATED PROGRESS BARS
+  ============================================================ */
+  window.addEventListener("load", () => {
+    document.querySelectorAll(".progress-bar-fill").forEach((el) => {
+      const w = el.getAttribute("data-width") || "0%";
+      setTimeout(() => { el.style.width = w; }, 300);
+    });
+  });
+
+  /* ============================================================
+     SCROLL REVEAL
+  ============================================================ */
+  const revealEls = document.querySelectorAll(".reveal");
+  if ("IntersectionObserver" in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("in");
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    revealEls.forEach((el) => io.observe(el));
+  } else {
+    revealEls.forEach((el) => el.classList.add("in"));
+  }
+
+  /* ============================================================
+     MOBILE STICKY CTA
+  ============================================================ */
+  const mobileCta = document.getElementById("mobileCta");
+  let ctaVisible = false;
+  window.addEventListener("scroll", () => {
+    const shouldShow = window.scrollY > 600;
+    if (shouldShow !== ctaVisible) {
+      ctaVisible = shouldShow;
+      mobileCta.classList.toggle("show", shouldShow);
+    }
+  }, { passive: true });
+
+  /* ============================================================
+     TOAST SYSTEM
+  ============================================================ */
+  const toastHost = document.getElementById("toastHost");
+  function showToast(text, dim) {
+    const t = document.createElement("div");
+    t.className = "toast" + (dim ? " dim" : "");
+    t.textContent = text;
+    toastHost.appendChild(t);
+    setTimeout(() => {
+      t.classList.add("out");
+      setTimeout(() => t.remove(), 320);
+    }, 4000);
+  }
+
+  /* ============================================================
+     REWARDS CALCULATOR
+  ============================================================ */
+  const calcSlider = document.getElementById("calcSlider");
+  const calcHoldings = document.getElementById("calcHoldings");
+  const calcAirdrop = document.getElementById("calcAirdrop");
+  const calcTier = document.getElementById("calcTier");
+  const calcMultiplier = document.getElementById("calcMultiplier");
+
+  function getTier(holdings) {
+    if (holdings >= 50000) return { name: "DIAMOND", mult: 5, color: "#00FF88" };
+    if (holdings >= 10000) return { name: "GOLD", mult: 3, color: "#00FF88" };
+    if (holdings >= 2500)  return { name: "SILVER", mult: 2, color: "#00CC66" };
+    if (holdings >= 500)   return { name: "BRONZE", mult: 1, color: "#9CA3AF" };
+    return { name: "NONE", mult: 0, color: "#6B7280" };
+  }
+
+  function updateCalculator() {
+    const holdings = parseInt(calcSlider.value, 10);
+    const tier = getTier(holdings);
+    calcHoldings.textContent = holdings.toLocaleString() + " $PUMP";
+    calcTier.textContent = tier.name;
+    calcTier.style.color = tier.color;
+
+    if (tier.mult === 0) {
+      calcAirdrop.textContent = "0 $PUMP";
+      calcMultiplier.textContent = "Hold 500+ to qualify";
+    } else {
+      const estimated = holdings * tier.mult;
+      calcAirdrop.textContent = "~" + estimated.toLocaleString() + " $PUMP";
+      calcMultiplier.textContent = tier.mult + "x multiplier";
+    }
+  }
+
+  if (calcSlider) {
+    calcSlider.addEventListener("input", updateCalculator);
+    updateCalculator();
+  }
+</script>
+
+</body>
+</html>

